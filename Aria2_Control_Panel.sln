@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2037
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aria2_Control_Panel", "Aria2_Control_Panel\Aria2_Control_Panel.csproj", "{93A172D3-7728-4F1C-BF9D-E2DB67C61519}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{93A172D3-7728-4F1C-BF9D-E2DB67C61519}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93A172D3-7728-4F1C-BF9D-E2DB67C61519}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93A172D3-7728-4F1C-BF9D-E2DB67C61519}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93A172D3-7728-4F1C-BF9D-E2DB67C61519}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A7F61E3D-9517-4C2D-9806-66D3EA88FFA5}
+	EndGlobalSection
+EndGlobal
