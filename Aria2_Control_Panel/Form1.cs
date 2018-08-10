@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,47 @@ namespace Aria2_Control_Panel
 {
     public partial class Form1 : Form
     {
+        Process P = new Process();
+        public void kill_process ()
+        {
+            string ProcessName = "aria2c.exe";
+            try
+            {
+                    P.StartInfo = new ProcessStartInfo()
+                    {
+                        FileName = "taskkill",
+                        CreateNoWindow = true,
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                        Arguments = "/F /IM \"" + ProcessName + "\""
+                    };
+                    P.Start();
+                    P.WaitForExit(600);
+            }
+            catch
+            {
+                    P.StartInfo = new ProcessStartInfo()
+                    {
+                        FileName = "tskill",
+                        CreateNoWindow = true,
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                        Arguments = "\"" + ProcessName + "\" /A /V"
+                    };
+                    P.Start();
+                    P.WaitForExit(600);
+            }
+        }
+        public void Start_Proccess()
+        {
+            string conf = @"--conf-path=aria2.conf";
+
+            P.StartInfo.FileName = "aria2c.exe";
+            P.StartInfo.Arguments = conf;
+            P.StartInfo.RedirectStandardOutput = true;
+            P.StartInfo.UseShellExecute = false;
+            P.StartInfo.CreateNoWindow = true;
+            P.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            P.Start();
+        }
         public Form1()
         {
             InitializeComponent();
@@ -19,17 +61,18 @@ namespace Aria2_Control_Panel
 
         private void Start_Aria2_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("aria2c.vbs");
+            Start_Proccess();
         }
 
         private void Stop_Aria2_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("Stop.bat");
+            kill_process();
         }
 
         private void Restart_Aria2_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("restart.bat");
+            kill_process();
+            Start_Proccess();
         }
 
         private void Form1_Load(object sender, EventArgs e)
