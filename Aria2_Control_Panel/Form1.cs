@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,6 +15,7 @@ namespace Aria2_Control_Panel
     public partial class Form1 : Form
     {
        string app_path = Application.StartupPath;
+       string Conf_path = @"--conf-path=aria2.conf";
         Process P = new Process();
         public void kill_process ()
         {
@@ -44,10 +46,9 @@ namespace Aria2_Control_Panel
             }
         }
         public void Start_Proccess()
-        {
-            string conf = @"--conf-path=aria2.conf";
+        { 
             P.StartInfo.FileName = app_path + @"\aria2c.exe";
-            P.StartInfo.Arguments = conf;
+            P.StartInfo.Arguments = Conf_path;
             P.StartInfo.RedirectStandardOutput = true;
             P.StartInfo.UseShellExecute = false;
             P.StartInfo.CreateNoWindow = true;
@@ -110,6 +111,8 @@ namespace Aria2_Control_Panel
         {
             if ( checkBox1.Checked == true )
             {
+                RegistryKey RKey = Registry.LocalMachine.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
+                RKey.SetValue("AppName", app_path + @"\aria2c.exe"+@""+ Conf_path);
                 checkBox1.Text = "設置開機啟動：目前為開啟狀態";
             }
             else if ( checkBox1.Checked == false )
