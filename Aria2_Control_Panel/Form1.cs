@@ -45,7 +45,6 @@ namespace Aria2_Control_Panel
         public void Start_Proccess()
         {
             string conf = @"--conf-path=aria2.conf";
-
             P.StartInfo.FileName = "aria2c.exe";
             P.StartInfo.Arguments = conf;
             P.StartInfo.RedirectStandardOutput = true;
@@ -64,24 +63,24 @@ namespace Aria2_Control_Panel
             string get_box_text = Information_Box.Text;
             Information_Box.Text = get_box_text.Insert(count, content + "\r\n");
         }
-        private void Start_Aria2_Click(object sender, EventArgs e)
+        public void Check_Process()
         {
-            Start_Proccess();
             Process[] pname = Process.GetProcessesByName("aria2c");
             if (pname.Length == 0)
                 Insert_Text("stop");
             else
                 Insert_Text("success");
         }
+        private void Start_Aria2_Click(object sender, EventArgs e)
+        {
+            Start_Proccess();
+            Check_Process();
+        }
 
         private void Stop_Aria2_Click(object sender, EventArgs e)
         {
             kill_process();
-            Process[] pname = Process.GetProcessesByName("aria2c");
-            if (pname.Length == 0)
-                Insert_Text("stop");
-            else
-                Insert_Text("success");
+            Check_Process();
         }
 
         private void Restart_Aria2_Click(object sender, EventArgs e)
@@ -92,7 +91,7 @@ namespace Aria2_Control_Panel
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+            Check_Process();
         }
 
         private void Information_Box_TextChanged(object sender, EventArgs e)
