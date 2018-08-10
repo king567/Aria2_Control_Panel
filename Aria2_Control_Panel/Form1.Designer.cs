@@ -32,14 +32,16 @@
             this.Start_Aria2 = new System.Windows.Forms.Button();
             this.Stop_Aria2 = new System.Windows.Forms.Button();
             this.Restart_Aria2 = new System.Windows.Forms.Button();
+            this.Information_Box = new System.Windows.Forms.TextBox();
+            this.panel_label = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Start_Aria2
             // 
-            this.Start_Aria2.Location = new System.Drawing.Point(70, 35);
+            this.Start_Aria2.Location = new System.Drawing.Point(46, 35);
             this.Start_Aria2.Margin = new System.Windows.Forms.Padding(12, 13, 12, 13);
             this.Start_Aria2.Name = "Start_Aria2";
-            this.Start_Aria2.Size = new System.Drawing.Size(274, 108);
+            this.Start_Aria2.Size = new System.Drawing.Size(182, 182);
             this.Start_Aria2.TabIndex = 0;
             this.Start_Aria2.Text = "啟動";
             this.Start_Aria2.UseVisualStyleBackColor = true;
@@ -47,10 +49,10 @@
             // 
             // Stop_Aria2
             // 
-            this.Stop_Aria2.Location = new System.Drawing.Point(70, 169);
+            this.Stop_Aria2.Location = new System.Drawing.Point(261, 35);
             this.Stop_Aria2.Margin = new System.Windows.Forms.Padding(12, 13, 12, 13);
             this.Stop_Aria2.Name = "Stop_Aria2";
-            this.Stop_Aria2.Size = new System.Drawing.Size(274, 108);
+            this.Stop_Aria2.Size = new System.Drawing.Size(182, 182);
             this.Stop_Aria2.TabIndex = 1;
             this.Stop_Aria2.Text = "停止";
             this.Stop_Aria2.UseVisualStyleBackColor = true;
@@ -58,32 +60,59 @@
             // 
             // Restart_Aria2
             // 
-            this.Restart_Aria2.Location = new System.Drawing.Point(70, 307);
+            this.Restart_Aria2.Location = new System.Drawing.Point(476, 35);
             this.Restart_Aria2.Margin = new System.Windows.Forms.Padding(12, 13, 12, 13);
             this.Restart_Aria2.Name = "Restart_Aria2";
-            this.Restart_Aria2.Size = new System.Drawing.Size(274, 108);
+            this.Restart_Aria2.Size = new System.Drawing.Size(182, 182);
             this.Restart_Aria2.TabIndex = 2;
             this.Restart_Aria2.Text = "重啟";
             this.Restart_Aria2.UseVisualStyleBackColor = true;
             this.Restart_Aria2.Click += new System.EventHandler(this.Restart_Aria2_Click);
+            // 
+            // Information_Box
+            // 
+            this.Information_Box.BackColor = System.Drawing.Color.Black;
+            this.Information_Box.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.Information_Box.Font = new System.Drawing.Font("新細明體", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Information_Box.ForeColor = System.Drawing.Color.Lime;
+            this.Information_Box.Location = new System.Drawing.Point(46, 278);
+            this.Information_Box.Multiline = true;
+            this.Information_Box.Name = "Information_Box";
+            this.Information_Box.Size = new System.Drawing.Size(612, 199);
+            this.Information_Box.TabIndex = 3;
+            this.Information_Box.TextChanged += new System.EventHandler(this.Information_Box_TextChanged);
+            // 
+            // panel_label
+            // 
+            this.panel_label.AutoSize = true;
+            this.panel_label.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.panel_label.Location = new System.Drawing.Point(53, 244);
+            this.panel_label.Name = "panel_label";
+            this.panel_label.Size = new System.Drawing.Size(89, 20);
+            this.panel_label.TabIndex = 4;
+            this.panel_label.Text = "目前狀態";
+            this.panel_label.Click += new System.EventHandler(this.label1_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
-            this.ClientSize = new System.Drawing.Size(413, 447);
+            this.ClientSize = new System.Drawing.Size(701, 500);
+            this.Controls.Add(this.panel_label);
+            this.Controls.Add(this.Information_Box);
             this.Controls.Add(this.Restart_Aria2);
             this.Controls.Add(this.Stop_Aria2);
             this.Controls.Add(this.Start_Aria2);
             this.Font = new System.Drawing.Font("標楷體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = " Aria2 控制台";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -92,6 +121,8 @@
         private System.Windows.Forms.Button Start_Aria2;
         private System.Windows.Forms.Button Stop_Aria2;
         private System.Windows.Forms.Button Restart_Aria2;
+        private System.Windows.Forms.TextBox Information_Box;
+        private System.Windows.Forms.Label panel_label;
     }
 }
 

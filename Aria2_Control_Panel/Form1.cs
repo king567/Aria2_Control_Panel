@@ -58,15 +58,22 @@ namespace Aria2_Control_Panel
         {
             InitializeComponent();
         }
-
+        public void Insert_Text(string content)
+        {
+            int count = Information_Box.Text.Length;
+            string get_box_text = Information_Box.Text;
+            Information_Box.Text = get_box_text.Insert(count, "\r\n" + content);
+        }
         private void Start_Aria2_Click(object sender, EventArgs e)
         {
             Start_Proccess();
+            Insert_Text("success");
         }
 
         private void Stop_Aria2_Click(object sender, EventArgs e)
         {
             kill_process();
+            Insert_Text("stop");
         }
 
         private void Restart_Aria2_Click(object sender, EventArgs e)
@@ -78,6 +85,16 @@ namespace Aria2_Control_Panel
         private void Form1_Load(object sender, EventArgs e)
         {
             
+        }
+
+        private void Information_Box_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
