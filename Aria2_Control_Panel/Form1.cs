@@ -62,18 +62,26 @@ namespace Aria2_Control_Panel
         {
             int count = Information_Box.Text.Length;
             string get_box_text = Information_Box.Text;
-            Information_Box.Text = get_box_text.Insert(count, "\r\n" + content);
+            Information_Box.Text = get_box_text.Insert(count, content + "\r\n");
         }
         private void Start_Aria2_Click(object sender, EventArgs e)
         {
             Start_Proccess();
-            Insert_Text("success");
+            Process[] pname = Process.GetProcessesByName("aria2c");
+            if (pname.Length == 0)
+                Insert_Text("stop");
+            else
+                Insert_Text("success");
         }
 
         private void Stop_Aria2_Click(object sender, EventArgs e)
         {
             kill_process();
-            Insert_Text("stop");
+            Process[] pname = Process.GetProcessesByName("aria2c");
+            if (pname.Length == 0)
+                Insert_Text("stop");
+            else
+                Insert_Text("success");
         }
 
         private void Restart_Aria2_Click(object sender, EventArgs e)
@@ -95,6 +103,18 @@ namespace Aria2_Control_Panel
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if ( checkBox1.Checked == true )
+            {
+                checkBox1.Text = "設置開機啟動：目前為開啟狀態";
+            }
+            else if ( checkBox1.Checked == false )
+            {
+                checkBox1.Text = "設置開機啟動：目前為關閉狀態";
+            }
         }
     }
 }
