@@ -128,7 +128,7 @@
             this.checkBox1.TabIndex = 5;
             this.checkBox1.Text = "設置開機啟動：目前為關閉狀態";
             this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.checkBox1.Click += new System.EventHandler(this.checkBox1_Click);
             // 
             // groupBox1
             // 
