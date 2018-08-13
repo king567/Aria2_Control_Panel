@@ -36,7 +36,7 @@ namespace Aria2_Control_Panel
             {
                 P.StartInfo = new ProcessStartInfo()
                 {
-                    FileName = "tskill",
+                    FileName = "taskill",
                     CreateNoWindow = true,
                     WindowStyle = ProcessWindowStyle.Hidden,
                     Arguments = "\"" + ProcessName + "\" /A /V"
