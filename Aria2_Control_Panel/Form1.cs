@@ -14,39 +14,39 @@ namespace Aria2_Control_Panel
 {
     public partial class Form1 : Form
     {
-       string app_path = Application.StartupPath;
-       string Conf_path = @"--conf-path=aria2.conf";
+        string app_path = Application.StartupPath;
+        string Conf_path = @"--conf-path=aria2.conf";
         Process P = new Process();
-        public void kill_process ()
+        public void kill_process()
         {
             string ProcessName = "aria2c.exe";
             try
             {
-                    P.StartInfo = new ProcessStartInfo()
-                    {
-                        FileName = "taskkill",
-                        CreateNoWindow = true,
-                        WindowStyle = ProcessWindowStyle.Hidden,
-                        Arguments = "/F /IM \"" + ProcessName + "\""
-                    };
-                    P.Start();
-                    P.WaitForExit(600);
+                P.StartInfo = new ProcessStartInfo()
+                {
+                    FileName = "taskkill",
+                    CreateNoWindow = true,
+                    WindowStyle = ProcessWindowStyle.Hidden,
+                    Arguments = "/F /IM \"" + ProcessName + "\""
+                };
+                P.Start();
+                P.WaitForExit(600);
             }
             catch
             {
-                    P.StartInfo = new ProcessStartInfo()
-                    {
-                        FileName = "tskill",
-                        CreateNoWindow = true,
-                        WindowStyle = ProcessWindowStyle.Hidden,
-                        Arguments = "\"" + ProcessName + "\" /A /V"
-                    };
-                    P.Start();
-                    P.WaitForExit(600);
+                P.StartInfo = new ProcessStartInfo()
+                {
+                    FileName = "tskill",
+                    CreateNoWindow = true,
+                    WindowStyle = ProcessWindowStyle.Hidden,
+                    Arguments = "\"" + ProcessName + "\" /A /V"
+                };
+                P.Start();
+                P.WaitForExit(600);
             }
         }
         public void Start_Proccess()
-        { 
+        {
             P.StartInfo.FileName = app_path + @"\aria2c.exe";
             P.StartInfo.Arguments = Conf_path;
             P.StartInfo.RedirectStandardOutput = true;
@@ -94,7 +94,7 @@ namespace Aria2_Control_Panel
         private void Form1_Load(object sender, EventArgs e)
         {
             Check_Process();
-            
+
         }
 
         private void Information_Box_TextChanged(object sender, EventArgs e)
@@ -109,16 +109,32 @@ namespace Aria2_Control_Panel
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if ( checkBox1.Checked == true )
+            if (checkBox1.Checked == true)
             {
                 RegistryKey RKey = Registry.LocalMachine.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
-                RKey.SetValue("AppName", app_path + @"\aria2c.exe"+@""+ Conf_path);
+                RKey.SetValue("aria2", app_path + @"\aria2c.exe" + @"" + Conf_path);
                 checkBox1.Text = "設置開機啟動：目前為開啟狀態";
             }
-            else if ( checkBox1.Checked == false )
+            else if (checkBox1.Checked == false)
             {
                 checkBox1.Text = "設置開機啟動：目前為關閉狀態";
             }
+        }
+
+        private void 編輯設定檔ToolStripMenuItem_Click(object sender, EventArgs e)
+        { 
+            Form2 fm2 = new Form2();
+            fm2.ShowDialog(this);
+            if (fm2.DialogResult == System.Windows.Forms.DialogResult.OK)
+            {
+                //若使用者在Form2按下了OK，則進入這個判斷式
+                Insert_Text("修改成功");
+            }
+            else
+            {
+                Insert_Text("修改失敗");
+            }
+
         }
     }
 }
