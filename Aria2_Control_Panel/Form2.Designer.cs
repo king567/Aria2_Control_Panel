@@ -41,7 +41,6 @@
             this.Reset = new System.Windows.Forms.Button();
             this.Default_Input_file = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -168,10 +167,6 @@
             this.label4.TabIndex = 11;
             this.label4.Text = "Input-File";
             // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
-            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -202,6 +197,5 @@
         private System.Windows.Forms.Button Reset;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox Default_Input_file;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
