@@ -195,13 +195,14 @@
             // 
             // Watch_Now_File_Textbox
             // 
+            this.Watch_Now_File_Textbox.BackColor = System.Drawing.Color.Black;
+            this.Watch_Now_File_Textbox.ForeColor = System.Drawing.Color.Lime;
             this.Watch_Now_File_Textbox.Location = new System.Drawing.Point(9, 214);
             this.Watch_Now_File_Textbox.Multiline = true;
             this.Watch_Now_File_Textbox.Name = "Watch_Now_File_Textbox";
             this.Watch_Now_File_Textbox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.Watch_Now_File_Textbox.Size = new System.Drawing.Size(582, 229);
             this.Watch_Now_File_Textbox.TabIndex = 14;
-            this.Watch_Now_File_Textbox.Text = "2";
             // 
             // Form2
             // 
