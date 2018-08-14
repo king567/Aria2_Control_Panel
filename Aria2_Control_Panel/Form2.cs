@@ -36,7 +36,7 @@ namespace Aria2_Control_Panel
         private void Save_Conf_Click(object sender, EventArgs e)
         {
             StreamWriter streamWriter = new StreamWriter(app_path + @"\aria2.conf");
-            streamWriter.WriteLine(Default_Download_Path.Text+ "\n" + Default_Log_Path.Text + "\n" + Default_Session_Path.Text + "\n" + Default_Input_file.Text + "\n"+ View_All_Conf_File.Text);
+            streamWriter.WriteLine(Default_Download_Path.Text+ "\r\n" + Default_Log_Path.Text + "\r\n" + Default_Session_Path.Text + "\r\n" + Default_Input_file.Text + "\r\n" + View_All_Conf_File.Text + "\r\n");
             streamWriter.Flush();
             streamWriter.Close();
             MessageBox.Show("儲存成功");
