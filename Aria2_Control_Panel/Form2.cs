@@ -123,6 +123,24 @@ force-sequential=true
 return conf_file2;
         }
 
+        public void Control_TextBox(int Set_True)
+        {
+            TextBox[] TBox = new TextBox[] { this.View_All_Conf_File, this.Watch_Now_File_Textbox};
+            int Count = TBox.GetUpperBound(0);
+            for (int i = 0; i <= Count; i++)
+            {
+                TBox[i].Visible = false;
+            }
+            TBox[Set_True].Visible = true;
+        }
+        private void Edit_File_Button_Click(object sender, EventArgs e)
+        {
+            Control_TextBox(0);
+        }
 
+        private void Watch_Now_File_Button_Click(object sender, EventArgs e)
+        {
+            Control_TextBox(1);
+        }
     }
 }
