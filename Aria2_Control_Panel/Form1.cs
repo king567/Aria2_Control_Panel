@@ -59,7 +59,12 @@ namespace Aria2_Control_Panel
         {
             InitializeComponent();
             RegistryKey rgkRun = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
-            if (rgkRun == null)
+            // 獲得應用進程路徑
+            string strAssName = Application.StartupPath + @"\" + Application.ProductName + @".exe";
+            // 獲得應用進程名稱
+            string strShortFileName = Application.ProductName;
+            string RegT = (string)rgkRun.GetValue(strShortFileName);
+            if (RegT == null)
             {
                 checkBox1.Text = "設置開機啟動：目前為關閉狀態";
                 checkBox1.Checked = false;
