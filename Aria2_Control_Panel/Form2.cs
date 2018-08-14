@@ -141,6 +141,9 @@ return conf_file2;
         private void Watch_Now_File_Button_Click(object sender, EventArgs e)
         {
             Control_TextBox(1);
+            string Log_Path= app_path + @"\aria2.conf";
+            string readText = File.ReadAllText(Log_Path);
+            Watch_Now_File_Textbox.Text = readText;
         }
     }
 }
