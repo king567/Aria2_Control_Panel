@@ -223,16 +223,18 @@ namespace Aria2_Control_Panel
         {
             Control_TextBox(1);
             string Log_Path = app_path + @"\aria2.log";
+            string Copy_Path = app_path + @"\Aria2_Control_Panel.log";
             if (File.Exists(Log_Path))
             {
-                string readText = File.ReadAllText(Log_Path);
+                File.Copy(Log_Path, Copy_Path, true);
+                string readText = File.ReadAllText(Copy_Path);
                 Watch_Log_TextBox.Text = readText;
             }
             else
             { 
                 Watch_Log_TextBox.Text = "檔案不存在請創建它";
             }
-            
+            File.Delete(Copy_Path);
         }
     }
 }
