@@ -64,7 +64,7 @@ namespace Aria2_Control_Panel
             for (int i = 0; i <= count_file; i++)
             {
                string Complete_path = app_path+ @"\"+ check_file_path[i];
-                if (System.IO.File.Exists(Complete_path))
+                if (File.Exists(Complete_path))
                 {
                     Insert_Text(check_file_path[i] + " 檔案存在");
                 }
@@ -223,8 +223,16 @@ namespace Aria2_Control_Panel
         {
             Control_TextBox(1);
             string Log_Path = app_path + @"\aria2.log";
-            string readText = File.ReadAllText(Log_Path);
-            Watch_Log_TextBox.Text = readText;
+            if (File.Exists(Log_Path))
+            {
+                string readText = File.ReadAllText(Log_Path);
+                Watch_Log_TextBox.Text = readText;
+            }
+            else
+            { 
+                Watch_Log_TextBox.Text = "檔案不存在請創建它";
+            }
+            
         }
     }
 }
