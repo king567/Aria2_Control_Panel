@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Watch_Now_File_Button = new System.Windows.Forms.Button();
             this.Edit_File_Button = new System.Windows.Forms.Button();
@@ -213,6 +214,7 @@
             this.ClientSize = new System.Drawing.Size(799, 486);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form2";
             this.Text = "編輯設定檔";
             this.Load += new System.EventHandler(this.Form2_Load);
