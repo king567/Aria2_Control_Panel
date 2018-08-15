@@ -91,7 +91,6 @@
             this.panel_label.Size = new System.Drawing.Size(89, 20);
             this.panel_label.TabIndex = 4;
             this.panel_label.Text = "目前狀態";
-            this.panel_label.Click += new System.EventHandler(this.label1_Click);
             // 
             // Restart_Aria2
             // 
@@ -116,7 +115,6 @@
             this.Information_Box.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.Information_Box.Size = new System.Drawing.Size(612, 199);
             this.Information_Box.TabIndex = 3;
-            this.Information_Box.TextChanged += new System.EventHandler(this.Information_Box_TextChanged);
             // 
             // checkBox1
             // 

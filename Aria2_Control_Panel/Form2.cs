@@ -13,12 +13,12 @@ namespace Aria2_Control_Panel
 {
     public partial class Form2 : Form
     {
-        string app_path = Application.StartupPath;
-        
+        string app_path = Application.StartupPath; 
         public Form2()
         {
             InitializeComponent();
-            Exit_Bt.DialogResult = System.Windows.Forms.DialogResult.OK;
+            Save_Conf.DialogResult = DialogResult.OK;
+            Exit_Bt.DialogResult = DialogResult.Cancel;
         }
         public void Conf_TXT()
         {
@@ -32,7 +32,7 @@ namespace Aria2_Control_Panel
         {
             Conf_TXT();
         }
-
+        
         private void Save_Conf_Click(object sender, EventArgs e)
         {
             StreamWriter streamWriter = new StreamWriter(app_path + @"\aria2.conf");
@@ -144,6 +144,11 @@ return conf_file2;
             string Log_Path= app_path + @"\aria2.conf";
             string readText = File.ReadAllText(Log_Path);
             Watch_Now_File_Textbox.Text = readText;
+        }
+
+        private void Exit_Bt_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

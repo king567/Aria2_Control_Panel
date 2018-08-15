@@ -16,6 +16,7 @@ namespace Aria2_Control_Panel
     {
         string app_path = Application.StartupPath;
         string Conf_path = @"--conf-path=aria2.conf";
+        DateTime GetDateTime = DateTime.Now;
         Process P = new Process();
         public void kill_process()
         {
@@ -55,6 +56,23 @@ namespace Aria2_Control_Panel
             P.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             P.Start();
         }
+        public void Check_File_Exist()
+        {
+            string[] check_file_path = new string[] { @"aria2.conf", @"aria2.log" , @"aria2.session" };
+            int count_file = check_file_path.GetUpperBound(0);
+            for (int i = 0; i <= count_file; i++)
+            {
+               string Complete_path = app_path+ @"\"+ check_file_path[i];
+                if (System.IO.File.Exists(Complete_path))
+                {
+                    Insert_Text(check_file_path[i] + " 檔案存在");
+                }
+                else
+                {
+                    Insert_Text(check_file_path[i] + " 檔案不存在請創建它");
+                }
+            }
+        }
         public Form1()
         {
             InitializeComponent();
@@ -64,6 +82,7 @@ namespace Aria2_Control_Panel
             // 獲得應用進程名稱
             string strShortFileName = Application.ProductName;
             string RegT = (string)rgkRun.GetValue(strShortFileName);
+            Check_File_Exist();
             if (RegT == null)
             {
                 checkBox1.Text = "設置開機啟動：目前為關閉狀態";
@@ -85,12 +104,21 @@ namespace Aria2_Control_Panel
         {
             Process[] pname = Process.GetProcessesByName("aria2c");
             if (pname.Length == 0)
-                Insert_Text("stop");
+            { 
+                Insert_Text("----------------------------------------------------------------------------------------------------------------------");
+                Insert_Text(GetDateTime.ToString()+@" "+"目前為停止狀態");
+                Insert_Text("----------------------------------------------------------------------------------------------------------------------");
+            }
             else
-                Insert_Text("success");
+            {
+                Insert_Text("----------------------------------------------------------------------------------------------------------------------");
+                Insert_Text(GetDateTime.ToString()+@" "+ "目前為啟動狀態");
+                Insert_Text("----------------------------------------------------------------------------------------------------------------------");
+            }
         }
         private void Start_Aria2_Click(object sender, EventArgs e)
         {
+            Check_File_Exist();
             Start_Proccess();
             Check_Process();
         }
@@ -104,6 +132,7 @@ namespace Aria2_Control_Panel
         private void Restart_Aria2_Click(object sender, EventArgs e)
         {
             kill_process();
+            Check_File_Exist();
             Start_Proccess();
         }
 
@@ -150,16 +179,6 @@ namespace Aria2_Control_Panel
                 checkBox1.Text = "設置開機啟動：目前為關閉狀態";
             }
         }
-        private void Information_Box_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-        
         
         private void 編輯設定檔ToolStripMenuItem_Click(object sender, EventArgs e)
         { 
@@ -169,6 +188,10 @@ namespace Aria2_Control_Panel
             {
                 //若使用者在Form2按下了OK，則進入這個判斷式
                 Insert_Text("修改成功");
+            }
+            else if(fm2.DialogResult == System.Windows.Forms.DialogResult.Cancel)
+            {
+                Insert_Text("修改失敗");
             }
             else
             {
