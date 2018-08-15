@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -179,17 +180,30 @@ namespace Aria2_Control_Panel
                 checkBox1.Text = "設置開機啟動：目前為關閉狀態";
             }
         }
-        
+
+        public void Control_TextBox(int Set_True)
+        {
+            TextBox[] TBox = new TextBox[] { this.Information_Box, this.Watch_Log_TextBox };
+            ToolStripMenuItem[] toolStripMenuItems = new ToolStripMenuItem[] { this.Now_Status, this.Watch_Log };
+            int Count = TBox.GetUpperBound(0);
+            for (int i = 0; i <= Count; i++)
+            {
+                TBox[i].Visible = false;
+                toolStripMenuItems[i].BackColor = Color.FromName("Gray");
+            }
+            TBox[Set_True].Visible = true; 
+             toolStripMenuItems[Set_True].BackColor = Color.FromName("WindowFrame");
+        }
         private void 編輯設定檔ToolStripMenuItem_Click(object sender, EventArgs e)
         { 
             Form2 fm2 = new Form2();
             fm2.ShowDialog(this);
-            if (fm2.DialogResult == System.Windows.Forms.DialogResult.OK)
+            if (fm2.DialogResult == DialogResult.OK)
             {
                 //若使用者在Form2按下了OK，則進入這個判斷式
                 Insert_Text("修改成功");
             }
-            else if(fm2.DialogResult == System.Windows.Forms.DialogResult.Cancel)
+            else if(fm2.DialogResult == DialogResult.Cancel)
             {
                 Insert_Text("修改失敗");
             }
@@ -200,6 +214,17 @@ namespace Aria2_Control_Panel
 
         }
 
+        private void Now_Status_Click(object sender, EventArgs e)
+        {
+            Control_TextBox(0);
+        }
 
+        private void Watch_Log_Click(object sender, EventArgs e)
+        {
+            Control_TextBox(1);
+            string Log_Path = app_path + @"\aria2.log";
+            string readText = File.ReadAllText(Log_Path);
+            Watch_Log_TextBox.Text = readText;
+        }
     }
 }
