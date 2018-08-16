@@ -222,10 +222,10 @@ namespace Aria2_Control_Panel
                     streamWriter.Write(Com_path);
                     Write_Cmd.Write(Cmd_comand);
                 }
-                streamWriter.Flush();
-                streamWriter.Close();
-                Write_Cmd.Flush();
-                Write_Cmd.Close();
+                    streamWriter.Flush();
+                    streamWriter.Close();
+                    Write_Cmd.Flush();
+                    Write_Cmd.Close();
                 if (rgkRun == null)
                 {   // 若不存在，創建註冊表基項"HKEY_LOCAL_MACHINE"
                     rgkRun = Registry.LocalMachine.CreateSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run");
