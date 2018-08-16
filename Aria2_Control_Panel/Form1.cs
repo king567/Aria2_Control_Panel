@@ -109,6 +109,8 @@ namespace Aria2_Control_Panel
                 else
                 {
                     Insert_Text(check_file_path[i] + " 檔案不存在請創建它");
+                    File.Create(app_path+@"\"+ check_file_path[i]);
+                    Insert_Text(check_file_path[i] + " 檔案創建成功");
                 }
             }
         }
@@ -196,8 +198,7 @@ namespace Aria2_Control_Panel
             string king2 = @"WScript" + @"." + @"Shell" + @"""" + ")" + "." + "Run" + @" ";
             string king3 = @"""" + app_path + @"\aria2c.exe" + @" " + @"--conf-path=aria2.conf" + @"""" + @",0";
             string Com_path = king1 + king2 + king3;
-            
-            ////////////////////////////////////////////////////////////////////
+             ////////////////////////////////////////////////////////////////////
             if (checkBox1.Checked == true)
             {
                 // 打開註冊表基項"HKEY_LOCAL_MACHINE"
