@@ -139,6 +139,10 @@ namespace Aria2_Control_Panel
             int count = Information_Box.Text.Length;
             string get_box_text = Information_Box.Text;
             Information_Box.Text = get_box_text.Insert(count, content + "\r\n");
+            //////自動卷軸到最底下
+            Information_Box.ScrollBars = ScrollBars.Vertical;
+            Information_Box.SelectionStart = Information_Box.Text.Length;
+            Information_Box.ScrollToCaret();
         }
         public void Check_Process()
         {
