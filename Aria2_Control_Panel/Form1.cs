@@ -101,16 +101,18 @@ namespace Aria2_Control_Panel
             int count_file = check_file_path.GetUpperBound(0);
             for (int i = 0; i <= count_file; i++)
             {
-               string Complete_path = app_path+ @"\"+ check_file_path[i];
+                string Complete_path = app_path+ @"\"+ check_file_path[i];
                 if (File.Exists(Complete_path))
                 {
                     Insert_Text(check_file_path[i] + " 檔案存在");
                 }
                 else
                 {
-                    Insert_Text(check_file_path[i] + " 檔案不存在請創建它");
-                    File.Create(app_path + @"\" + check_file_path[i]);
-                    Insert_Text(check_file_path[i] + " 檔案創建成功");
+                    using (var myFile = File.Create(app_path + @"\" + check_file_path[i]))
+                    {
+                        Insert_Text(check_file_path[i] + " 檔案不存在請創建它");
+                        Insert_Text(check_file_path[i] + " 檔案創建成功");
+                    }
                 }
             }
         }
@@ -186,10 +188,8 @@ namespace Aria2_Control_Panel
         private void Form1_Load(object sender, EventArgs e)
         {
             Check_Process();
-            string[] check_file_path = new string[] { @"aria2.conf", @"aria2.log", @"aria2.session" };
-            File.Create(app_path + @"\" + check_file_path[0]).Close();
-            File.Create(app_path + @"\" + check_file_path[1]).Close();
-            File.Create(app_path + @"\" + check_file_path[2]).Close();
+            
+
 
         }
 
