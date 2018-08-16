@@ -112,11 +112,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Aria2.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="icons8.ico" />
     <None Include="Resources\aria2c.exe" />
   </ItemGroup>
