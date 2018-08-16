@@ -134,6 +134,7 @@ namespace Aria2_Control_Panel
             kill_process();
             Check_File_Exist();
             Start_Proccess();
+            Check_Process();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -185,14 +186,14 @@ namespace Aria2_Control_Panel
                     rgkRun = Registry.LocalMachine.CreateSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run");
                     // 設置指定的註冊表項的指定名稱/值對。如果指定的項不存在，則創建該項。
                     rgkRun.SetValue(strShortFileName, Cmd_Path);
-                    MessageBox.Show("添加開機啟動成功");
+                    Insert_Text("添加開機啟動成功");
                     checkBox1.Text = "設置開機啟動：目前為開啟狀態";
                 }
                 else
                 { 
                     // 設置指定的註冊表項的指定名稱/值對。如果指定的項不存在，則創建該項。
                     rgkRun.SetValue(strShortFileName, Cmd_Path);
-                    MessageBox.Show("添加開機啟動成功");
+                    Insert_Text("添加開機啟動成功");
                     checkBox1.Text = "設置開機啟動：目前為開啟狀態";
                 }
             }
@@ -207,12 +208,12 @@ namespace Aria2_Control_Panel
                 }
                 else{ }
                 if (rgkRun == null)
-                { MessageBox.Show("已關閉開機啟動"); }
+                { Insert_Text("已關閉開機啟動"); }
                 else
                 { 
                     // 刪除指定的註冊表項的指定名稱/值對。
                     rgkRun.DeleteValue(strShortFileName, false);
-                    MessageBox.Show("已關閉開機啟動");
+                    Insert_Text("已關閉開機啟動");
                     checkBox1.Text = "設置開機啟動：目前為關閉狀態";
                 }
             }
