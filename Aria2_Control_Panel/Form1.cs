@@ -8,6 +8,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -19,6 +20,43 @@ namespace Aria2_Control_Panel
         string Conf_path = @"--conf-path=aria2.conf";
         DateTime GetDateTime = DateTime.Now;
         Process P = new Process();
+        public static void GenerateExe(byte[] FileBytes, string DestinationPath)
+        {
+            string fullPath = Application.StartupPath + @"\" + @"aria2.exe";
+            fullPath = DestinationPath;
+            try
+            {
+                //1) Fetch Exe file content from Resources
+                byte[] memoryFile = FileBytes;
+
+                //2) Create file to be deleted complete execution
+                FileStream aFile = new FileStream(DestinationPath, FileMode.Create, FileAccess.Write, FileShare.None, 20000, FileOptions.None);
+
+                //3) Write Exe file content
+                aFile.Write(memoryFile, 0, memoryFile.Length);
+                aFile.Flush();
+                aFile.Close();
+                Thread.Sleep(100);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                File.Delete(fullPath);
+            }
+
+        }
+        public void Check_aria2_file_Exists()
+        {
+            if(File.Exists(app_path + @"\aria2c.exe"))
+            {}
+            else
+            {
+                Insert_Text("aria2c.exe不存在");
+                Insert_Text("提取檔案中.....");
+                GenerateExe(Properties.Resources.aria2c, app_path + @"\aria2c.exe");
+                Insert_Text("提取成功");
+            }
+        }
         public void kill_process()
         {
             string ProcessName = "aria2c.exe";
@@ -119,6 +157,7 @@ namespace Aria2_Control_Panel
         private void Start_Aria2_Click(object sender, EventArgs e)
         {
             Check_File_Exist();
+            Check_aria2_file_Exists();
             Start_Proccess();
             Check_Process();
         }
@@ -133,6 +172,7 @@ namespace Aria2_Control_Panel
         {
             kill_process();
             Check_File_Exist();
+            Check_aria2_file_Exists();
             Start_Proccess();
             Check_Process();
         }
