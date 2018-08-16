@@ -109,7 +109,7 @@ namespace Aria2_Control_Panel
                 else
                 {
                     Insert_Text(check_file_path[i] + " 檔案不存在請創建它");
-                    File.Create(app_path+@"\"+ check_file_path[i]);
+                    File.Create(app_path + @"\" + check_file_path[i]);
                     Insert_Text(check_file_path[i] + " 檔案創建成功");
                 }
             }
@@ -186,6 +186,11 @@ namespace Aria2_Control_Panel
         private void Form1_Load(object sender, EventArgs e)
         {
             Check_Process();
+            string[] check_file_path = new string[] { @"aria2.conf", @"aria2.log", @"aria2.session" };
+            File.Create(app_path + @"\" + check_file_path[0]).Close();
+            File.Create(app_path + @"\" + check_file_path[1]).Close();
+            File.Create(app_path + @"\" + check_file_path[2]).Close();
+
         }
 
         private void checkBox1_Click(object sender, EventArgs e)
