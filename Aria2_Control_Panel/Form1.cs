@@ -100,7 +100,7 @@ namespace Aria2_Control_Panel
             P.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             P.Start();
         }
-        public void Check_File_Exist()
+        public void Check_All_File()
         {
             string[] check_file_path = new string[] { @"aria2.conf", @"aria2.log" , @"aria2.session" };
             int count_file = check_file_path.GetUpperBound(0);
@@ -121,13 +121,29 @@ namespace Aria2_Control_Panel
                 }
             }
         }
+        public void Check_Log_File()
+        {
+            string Log_Path = app_path + @"\aria2.log";
+            string Copy_Path = app_path + @"\Aria2_Control_Panel.log";
+            if (File.Exists(Log_Path))
+            {
+                File.Copy(Log_Path, Copy_Path, true);
+                string readText = File.ReadAllText(Copy_Path);
+                Watch_Log_TextBox.Text = readText;
+            }
+            else
+            {
+                Watch_Log_TextBox.Text = "檔案不存在請創建它";
+            }
+            File.Delete(Copy_Path);
+        }
         public void Check_Boost_Up_Status()
         {
             RegistryKey rgkRun = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
             // 獲得應用進程名稱
             string strShortFileName = @"aria2c";
             string RegT = (string)rgkRun.GetValue(strShortFileName);
-            Check_File_Exist();
+            Check_All_File();
             if (RegT == null)
             {
                 Boost_Up_CheckBox.Text = "設置開機啟動：目前為關閉狀態";
@@ -178,25 +194,9 @@ namespace Aria2_Control_Panel
             TBox[Set_True].Visible = true;
             toolStripMenuItems[Set_True].BackColor = Color.FromName("WindowFrame");
         }
-        public void Check_Log_File()
-        {
-            string Log_Path = app_path + @"\aria2.log";
-            string Copy_Path = app_path + @"\Aria2_Control_Panel.log";
-            if (File.Exists(Log_Path))
-            {
-                File.Copy(Log_Path, Copy_Path, true);
-                string readText = File.ReadAllText(Copy_Path);
-                Watch_Log_TextBox.Text = readText;
-            }
-            else
-            {
-                Watch_Log_TextBox.Text = "檔案不存在請創建它";
-            }
-            File.Delete(Copy_Path);
-        }
         private void Start_Aria2_Click(object sender, EventArgs e)
         {
-            Check_File_Exist();
+            Check_All_File();
             Check_aria2_file_Exists();
             Start_Proccess();
             Check_Process();
@@ -211,7 +211,7 @@ namespace Aria2_Control_Panel
         private void Restart_Aria2_Click(object sender, EventArgs e)
         {
             kill_process();
-            Check_File_Exist();
+            Check_All_File();
             Check_aria2_file_Exists();
             Start_Proccess();
             Check_Process();
