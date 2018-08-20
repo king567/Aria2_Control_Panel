@@ -20,6 +20,11 @@ namespace Aria2_Control_Panel
         string Conf_path = @"--conf-path=aria2.conf";
         DateTime GetDateTime = DateTime.Now;
         Process P = new Process();
+        public Form1()
+        {
+            InitializeComponent();
+            Check_Boost_Up_Status();
+        }
         public static void GenerateExe(byte[] FileBytes, string DestinationPath)
         {
             string fullPath = Application.StartupPath + @"\" + @"aria2.exe";
@@ -116,10 +121,8 @@ namespace Aria2_Control_Panel
                 }
             }
         }
-        public Form1()
+        public void Check_Boost_Up_Status()
         {
-            InitializeComponent();
-
             RegistryKey rgkRun = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
             // 獲得應用進程名稱
             string strShortFileName = @"aria2c";
