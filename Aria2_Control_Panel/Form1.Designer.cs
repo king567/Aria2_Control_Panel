@@ -35,7 +35,7 @@
             this.Stop_Aria2 = new System.Windows.Forms.Button();
             this.Restart_Aria2 = new System.Windows.Forms.Button();
             this.Information_Box = new System.Windows.Forms.TextBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.Boost_Up_CheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.Now_Status = new System.Windows.Forms.ToolStripMenuItem();
@@ -110,22 +110,22 @@
             this.Information_Box.Size = new System.Drawing.Size(612, 199);
             this.Information_Box.TabIndex = 3;
             // 
-            // checkBox1
+            // Boost_Up_CheckBox
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.ForeColor = System.Drawing.SystemColors.Control;
-            this.checkBox1.Location = new System.Drawing.Point(335, 258);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(311, 24);
-            this.checkBox1.TabIndex = 5;
-            this.checkBox1.Text = "設置開機啟動：目前為關閉狀態";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.Click += new System.EventHandler(this.checkBox1_Click);
+            this.Boost_Up_CheckBox.AutoSize = true;
+            this.Boost_Up_CheckBox.ForeColor = System.Drawing.SystemColors.Control;
+            this.Boost_Up_CheckBox.Location = new System.Drawing.Point(335, 258);
+            this.Boost_Up_CheckBox.Name = "Boost_Up_CheckBox";
+            this.Boost_Up_CheckBox.Size = new System.Drawing.Size(311, 24);
+            this.Boost_Up_CheckBox.TabIndex = 5;
+            this.Boost_Up_CheckBox.Text = "設置開機啟動：目前為關閉狀態";
+            this.Boost_Up_CheckBox.UseVisualStyleBackColor = true;
+            this.Boost_Up_CheckBox.Click += new System.EventHandler(this.Boost_Up_CheckBox_Click);
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.menuStrip2);
-            this.groupBox1.Controls.Add(this.checkBox1);
+            this.groupBox1.Controls.Add(this.Boost_Up_CheckBox);
             this.groupBox1.Controls.Add(this.Information_Box);
             this.groupBox1.Controls.Add(this.Restart_Aria2);
             this.groupBox1.Controls.Add(this.Stop_Aria2);
@@ -215,7 +215,7 @@
         private System.Windows.Forms.Button Stop_Aria2;
         private System.Windows.Forms.Button Restart_Aria2;
         private System.Windows.Forms.TextBox Information_Box;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox Boost_Up_CheckBox;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.MenuStrip menuStrip2;
         private System.Windows.Forms.ToolStripMenuItem Now_Status;

@@ -130,13 +130,13 @@ namespace Aria2_Control_Panel
             Check_File_Exist();
             if (RegT == null)
             {
-                checkBox1.Text = "設置開機啟動：目前為關閉狀態";
-                checkBox1.Checked = false;
+                Boost_Up_CheckBox.Text = "設置開機啟動：目前為關閉狀態";
+                Boost_Up_CheckBox.Checked = false;
             }
             else
             {
-                checkBox1.Text = "設置開機啟動：目前為開啟狀態";
-                checkBox1.Checked = true;
+                Boost_Up_CheckBox.Text = "設置開機啟動：目前為開啟狀態";
+                Boost_Up_CheckBox.Checked = true;
             }
         }
         public void Insert_Text(string content)
@@ -165,6 +165,35 @@ namespace Aria2_Control_Panel
                 Insert_Text("----------------------------------------------------------------------------------------------------------------------");
             }
         }
+        public void Control_TextBox(int Set_True)
+        {
+            TextBox[] TBox = new TextBox[] { this.Information_Box, this.Watch_Log_TextBox };
+            ToolStripMenuItem[] toolStripMenuItems = new ToolStripMenuItem[] { this.Now_Status, this.Watch_Log };
+            int Count = TBox.GetUpperBound(0);
+            for (int i = 0; i <= Count; i++)
+            {
+                TBox[i].Visible = false;
+                toolStripMenuItems[i].BackColor = Color.FromName("Gray");
+            }
+            TBox[Set_True].Visible = true;
+            toolStripMenuItems[Set_True].BackColor = Color.FromName("WindowFrame");
+        }
+        public void Check_Log_File()
+        {
+            string Log_Path = app_path + @"\aria2.log";
+            string Copy_Path = app_path + @"\Aria2_Control_Panel.log";
+            if (File.Exists(Log_Path))
+            {
+                File.Copy(Log_Path, Copy_Path, true);
+                string readText = File.ReadAllText(Copy_Path);
+                Watch_Log_TextBox.Text = readText;
+            }
+            else
+            {
+                Watch_Log_TextBox.Text = "檔案不存在請創建它";
+            }
+            File.Delete(Copy_Path);
+        }
         private void Start_Aria2_Click(object sender, EventArgs e)
         {
             Check_File_Exist();
@@ -191,99 +220,6 @@ namespace Aria2_Control_Panel
         private void Form1_Load(object sender, EventArgs e)
         {
             Check_Process();
-            
-
-
-        }
-
-        private void checkBox1_Click(object sender, EventArgs e)
-        {
-            // 獲得應用進程路徑
-            string strAssName = Application.StartupPath + @"\aria2c.exe";
-            // 獲得應用進程名稱
-            string strShortFileName = @"aria2c";
-            string aria2_boost_up = app_path + @"\" + @"Boost_Up.vbs";
-            string Cmd_Path = app_path + @"\start.cmd";
-            string Cmd_comand = "cd"+@" "+ app_path+ "\r\n"+ "start"+@" "+"Boost_Up.vbs";
-            ////////////////////////////////////////////////////////////////////
-            string king1 = "CreateObject" + @"(" + @"""";
-            string king2 = @"WScript" + @"." + @"Shell" + @"""" + ")" + "." + "Run" + @" ";
-            string king3 = @"""" + app_path + @"\aria2c.exe" + @" " + @"--conf-path=aria2.conf" + @"""" + @",0";
-            string Com_path = king1 + king2 + king3;
-             ////////////////////////////////////////////////////////////////////
-            if (checkBox1.Checked == true)
-            {
-                // 打開註冊表基項"HKEY_LOCAL_MACHINE"
-                RegistryKey rgkRun = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
-                StreamWriter streamWriter = new StreamWriter(aria2_boost_up, true);
-                StreamWriter Write_Cmd = new StreamWriter(Cmd_Path, true);
-                if (File.Exists(aria2_boost_up))
-                {
-                    streamWriter.Write(Com_path);
-                    Write_Cmd.Write(Cmd_comand);
-                }
-                else
-                {
-                    File.Create(aria2_boost_up);
-                    File.Create(Cmd_Path);
-                    //往VBS檔裡面寫入資料
-                    streamWriter.Write(Com_path);
-                    Write_Cmd.Write(Cmd_comand);
-                }
-                    streamWriter.Flush();
-                    streamWriter.Close();
-                    Write_Cmd.Flush();
-                    Write_Cmd.Close();
-                if (rgkRun == null)
-                {   // 若不存在，創建註冊表基項"HKEY_LOCAL_MACHINE"
-                    rgkRun = Registry.LocalMachine.CreateSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run");
-                    // 設置指定的註冊表項的指定名稱/值對。如果指定的項不存在，則創建該項。
-                    rgkRun.SetValue(strShortFileName, Cmd_Path);
-                    Insert_Text("添加開機啟動成功");
-                    checkBox1.Text = "設置開機啟動：目前為開啟狀態";
-                }
-                else
-                { 
-                    // 設置指定的註冊表項的指定名稱/值對。如果指定的項不存在，則創建該項。
-                    rgkRun.SetValue(strShortFileName, Cmd_Path);
-                    Insert_Text("添加開機啟動成功");
-                    checkBox1.Text = "設置開機啟動：目前為開啟狀態";
-                }
-            }
-            else if (checkBox1.Checked == false)
-            {
-                // 打開註冊表基項"HKEY_LOCAL_MACHINE"
-                RegistryKey rgkRun = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
-                if(File.Exists(aria2_boost_up))
-                {
-                    File.Delete(aria2_boost_up);
-                    File.Delete(Cmd_Path);
-                }
-                else{ }
-                if (rgkRun == null)
-                { Insert_Text("已關閉開機啟動"); }
-                else
-                { 
-                    // 刪除指定的註冊表項的指定名稱/值對。
-                    rgkRun.DeleteValue(strShortFileName, false);
-                    Insert_Text("已關閉開機啟動");
-                    checkBox1.Text = "設置開機啟動：目前為關閉狀態";
-                }
-            }
-        }
-
-        public void Control_TextBox(int Set_True)
-        {
-            TextBox[] TBox = new TextBox[] { this.Information_Box, this.Watch_Log_TextBox };
-            ToolStripMenuItem[] toolStripMenuItems = new ToolStripMenuItem[] { this.Now_Status, this.Watch_Log };
-            int Count = TBox.GetUpperBound(0);
-            for (int i = 0; i <= Count; i++)
-            {
-                TBox[i].Visible = false;
-                toolStripMenuItems[i].BackColor = Color.FromName("Gray");
-            }
-            TBox[Set_True].Visible = true; 
-             toolStripMenuItems[Set_True].BackColor = Color.FromName("WindowFrame");
         }
 
         private void 編輯設定檔ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -314,19 +250,83 @@ namespace Aria2_Control_Panel
         private void Watch_Log_Click(object sender, EventArgs e)
         {
             Control_TextBox(1);
-            string Log_Path = app_path + @"\aria2.log";
-            string Copy_Path = app_path + @"\Aria2_Control_Panel.log";
-            if (File.Exists(Log_Path))
+            Check_Log_File();
+        }
+
+        private void Boost_Up_CheckBox_Click(object sender, EventArgs e)
+        {
+            // 獲得應用進程路徑
+            string strAssName = Application.StartupPath + @"\aria2c.exe";
+            // 獲得應用進程名稱
+            string strShortFileName = @"aria2c";
+            string aria2_boost_up = app_path + @"\" + @"Boost_Up.vbs";
+            string Cmd_Path = app_path + @"\start.cmd";
+            string Cmd_comand = "cd" + @" " + app_path + "\r\n" + "start" + @" " + "Boost_Up.vbs";
+            ////////////////////////////////////////////////////////////////////
+            string king1 = "CreateObject" + @"(" + @"""";
+            string king2 = @"WScript" + @"." + @"Shell" + @"""" + ")" + "." + "Run" + @" ";
+            string king3 = @"""" + app_path + @"\aria2c.exe" + @" " + @"--conf-path=aria2.conf" + @"""" + @",0";
+            string Com_path = king1 + king2 + king3;
+            ////////////////////////////////////////////////////////////////////
+            if (Boost_Up_CheckBox.Checked == true)
             {
-                File.Copy(Log_Path, Copy_Path, true);
-                string readText = File.ReadAllText(Copy_Path);
-                Watch_Log_TextBox.Text = readText;
+                // 打開註冊表基項"HKEY_LOCAL_MACHINE"
+                RegistryKey rgkRun = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+                StreamWriter streamWriter = new StreamWriter(aria2_boost_up, true);
+                StreamWriter Write_Cmd = new StreamWriter(Cmd_Path, true);
+                if (File.Exists(aria2_boost_up))
+                {
+                    streamWriter.Write(Com_path);
+                    Write_Cmd.Write(Cmd_comand);
+                }
+                else
+                {
+                    File.Create(aria2_boost_up);
+                    File.Create(Cmd_Path);
+                    //往VBS檔裡面寫入資料
+                    streamWriter.Write(Com_path);
+                    Write_Cmd.Write(Cmd_comand);
+                }
+                streamWriter.Flush();
+                streamWriter.Close();
+                Write_Cmd.Flush();
+                Write_Cmd.Close();
+                if (rgkRun == null)
+                {   // 若不存在，創建註冊表基項"HKEY_LOCAL_MACHINE"
+                    rgkRun = Registry.LocalMachine.CreateSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run");
+                    // 設置指定的註冊表項的指定名稱/值對。如果指定的項不存在，則創建該項。
+                    rgkRun.SetValue(strShortFileName, Cmd_Path);
+                    Insert_Text("添加開機啟動成功");
+                    Boost_Up_CheckBox.Text = "設置開機啟動：目前為開啟狀態";
+                }
+                else
+                {
+                    // 設置指定的註冊表項的指定名稱/值對。如果指定的項不存在，則創建該項。
+                    rgkRun.SetValue(strShortFileName, Cmd_Path);
+                    Insert_Text("添加開機啟動成功");
+                    Boost_Up_CheckBox.Text = "設置開機啟動：目前為開啟狀態";
+                }
             }
-            else
-            { 
-                Watch_Log_TextBox.Text = "檔案不存在請創建它";
+            else if (Boost_Up_CheckBox.Checked == false)
+            {
+                // 打開註冊表基項"HKEY_LOCAL_MACHINE"
+                RegistryKey rgkRun = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+                if (File.Exists(aria2_boost_up))
+                {
+                    File.Delete(aria2_boost_up);
+                    File.Delete(Cmd_Path);
+                }
+                else { }
+                if (rgkRun == null)
+                { Insert_Text("已關閉開機啟動"); }
+                else
+                {
+                    // 刪除指定的註冊表項的指定名稱/值對。
+                    rgkRun.DeleteValue(strShortFileName, false);
+                    Insert_Text("已關閉開機啟動");
+                    Boost_Up_CheckBox.Text = "設置開機啟動：目前為關閉狀態";
+                }
             }
-            File.Delete(Copy_Path);
         }
     }
 }
