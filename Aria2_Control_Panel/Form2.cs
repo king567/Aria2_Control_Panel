@@ -150,5 +150,56 @@ return conf_file2;
         {
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog path = new FolderBrowserDialog();
+            path.ShowDialog();
+            if(path.SelectedPath == "")
+            {}
+            else
+            {
+                this.Default_Download_Path.Text = "dir="+path.SelectedPath;
+            } 
+        }
+
+        private void Select_Path_button2_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog file = new OpenFileDialog();
+            file.Filter = "aria2|*.log";
+            file.ShowDialog();
+            if(file.FileName.ToString() == "")
+            { }
+            else
+            {
+                this.Default_Log_Path.Text = "log=" + file.FileName.ToString();
+            } 
+        }
+
+        private void Select_Path_button3_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog file = new OpenFileDialog();
+            file.Filter = "aria2|*.session";
+            file.ShowDialog();
+            if (file.FileName.ToString() == "")
+            { }
+            else
+            {
+                this.Default_Session_Path.Text = "save-session=" + file.FileName.ToString();
+            }
+        }
+
+        private void Select_Path_button4_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog file = new OpenFileDialog();
+            file.Filter = "aria2|*.session";
+            file.ShowDialog();
+            if (file.FileName.ToString() == "")
+            { }
+            else
+            {
+                this.Default_Input_file.Text = "input-file=" + file.FileName.ToString();
+            }
+        }
     }
 }

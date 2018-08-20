@@ -45,11 +45,19 @@
             this.Default_Download_Path = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.Watch_Now_File_Textbox = new System.Windows.Forms.TextBox();
+            this.Select_Path_button1 = new System.Windows.Forms.Button();
+            this.Select_Path_button2 = new System.Windows.Forms.Button();
+            this.Select_Path_button3 = new System.Windows.Forms.Button();
+            this.Select_Path_button4 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.Select_Path_button4);
+            this.groupBox1.Controls.Add(this.Select_Path_button3);
+            this.groupBox1.Controls.Add(this.Select_Path_button2);
+            this.groupBox1.Controls.Add(this.Select_Path_button1);
             this.groupBox1.Controls.Add(this.Watch_Now_File_Button);
             this.groupBox1.Controls.Add(this.Edit_File_Button);
             this.groupBox1.Controls.Add(this.label4);
@@ -105,7 +113,7 @@
             // 
             this.Default_Input_file.Location = new System.Drawing.Point(163, 149);
             this.Default_Input_file.Name = "Default_Input_file";
-            this.Default_Input_file.Size = new System.Drawing.Size(580, 25);
+            this.Default_Input_file.Size = new System.Drawing.Size(551, 25);
             this.Default_Input_file.TabIndex = 10;
             // 
             // Reset
@@ -141,7 +149,7 @@
             // 
             this.Default_Session_Path.Location = new System.Drawing.Point(163, 109);
             this.Default_Session_Path.Name = "Default_Session_Path";
-            this.Default_Session_Path.Size = new System.Drawing.Size(580, 25);
+            this.Default_Session_Path.Size = new System.Drawing.Size(551, 25);
             this.Default_Session_Path.TabIndex = 6;
             // 
             // label3
@@ -157,7 +165,7 @@
             // 
             this.Default_Log_Path.Location = new System.Drawing.Point(163, 67);
             this.Default_Log_Path.Name = "Default_Log_Path";
-            this.Default_Log_Path.Size = new System.Drawing.Size(580, 25);
+            this.Default_Log_Path.Size = new System.Drawing.Size(551, 25);
             this.Default_Log_Path.TabIndex = 4;
             // 
             // label2
@@ -183,7 +191,7 @@
             // 
             this.Default_Download_Path.Location = new System.Drawing.Point(163, 24);
             this.Default_Download_Path.Name = "Default_Download_Path";
-            this.Default_Download_Path.Size = new System.Drawing.Size(580, 25);
+            this.Default_Download_Path.Size = new System.Drawing.Size(551, 25);
             this.Default_Download_Path.TabIndex = 1;
             // 
             // label1
@@ -206,6 +214,46 @@
             this.Watch_Now_File_Textbox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.Watch_Now_File_Textbox.Size = new System.Drawing.Size(582, 229);
             this.Watch_Now_File_Textbox.TabIndex = 14;
+            // 
+            // Select_Path_button1
+            // 
+            this.Select_Path_button1.Location = new System.Drawing.Point(720, 24);
+            this.Select_Path_button1.Name = "Select_Path_button1";
+            this.Select_Path_button1.Size = new System.Drawing.Size(49, 23);
+            this.Select_Path_button1.TabIndex = 15;
+            this.Select_Path_button1.Text = "...";
+            this.Select_Path_button1.UseVisualStyleBackColor = true;
+            this.Select_Path_button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // Select_Path_button2
+            // 
+            this.Select_Path_button2.Location = new System.Drawing.Point(720, 66);
+            this.Select_Path_button2.Name = "Select_Path_button2";
+            this.Select_Path_button2.Size = new System.Drawing.Size(49, 23);
+            this.Select_Path_button2.TabIndex = 16;
+            this.Select_Path_button2.Text = "...";
+            this.Select_Path_button2.UseVisualStyleBackColor = true;
+            this.Select_Path_button2.Click += new System.EventHandler(this.Select_Path_button2_Click);
+            // 
+            // Select_Path_button3
+            // 
+            this.Select_Path_button3.Location = new System.Drawing.Point(720, 108);
+            this.Select_Path_button3.Name = "Select_Path_button3";
+            this.Select_Path_button3.Size = new System.Drawing.Size(49, 23);
+            this.Select_Path_button3.TabIndex = 17;
+            this.Select_Path_button3.Text = "...";
+            this.Select_Path_button3.UseVisualStyleBackColor = true;
+            this.Select_Path_button3.Click += new System.EventHandler(this.Select_Path_button3_Click);
+            // 
+            // Select_Path_button4
+            // 
+            this.Select_Path_button4.Location = new System.Drawing.Point(720, 148);
+            this.Select_Path_button4.Name = "Select_Path_button4";
+            this.Select_Path_button4.Size = new System.Drawing.Size(49, 23);
+            this.Select_Path_button4.TabIndex = 18;
+            this.Select_Path_button4.Text = "...";
+            this.Select_Path_button4.UseVisualStyleBackColor = true;
+            this.Select_Path_button4.Click += new System.EventHandler(this.Select_Path_button4_Click);
             // 
             // Form2
             // 
@@ -242,5 +290,9 @@
         private System.Windows.Forms.Button Watch_Now_File_Button;
         private System.Windows.Forms.Button Edit_File_Button;
         private System.Windows.Forms.TextBox Watch_Now_File_Textbox;
+        private System.Windows.Forms.Button Select_Path_button1;
+        private System.Windows.Forms.Button Select_Path_button4;
+        private System.Windows.Forms.Button Select_Path_button3;
+        private System.Windows.Forms.Button Select_Path_button2;
     }
 }
