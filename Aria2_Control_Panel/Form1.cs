@@ -19,7 +19,7 @@ namespace Aria2_Control_Panel
         string app_path = Application.StartupPath;
         string Conf_path = @"--conf-path=aria2.conf";
         DateTime GetDateTime = DateTime.Now;
-        Process P = new Process();
+        
         public Form1()
         {
             InitializeComponent();
@@ -65,40 +65,46 @@ namespace Aria2_Control_Panel
         public void kill_process()
         {
             string ProcessName = "aria2c.exe";
-            try
+            using (Process P = new Process())
             {
-                P.StartInfo = new ProcessStartInfo()
+                try
                 {
-                    FileName = "taskkill",
-                    CreateNoWindow = true,
-                    WindowStyle = ProcessWindowStyle.Hidden,
-                    Arguments = "/F /IM \"" + ProcessName + "\""
-                };
-                P.Start();
-                P.WaitForExit(600);
-            }
-            catch
-            {
-                P.StartInfo = new ProcessStartInfo()
+                    P.StartInfo = new ProcessStartInfo()
+                    {
+                        FileName = "taskkill",
+                        CreateNoWindow = true,
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                        Arguments = "/F /IM \"" + ProcessName + "\""
+                    };
+                    P.Start();
+                    P.WaitForExit(600);
+                }
+                catch
                 {
-                    FileName = "taskill",
-                    CreateNoWindow = true,
-                    WindowStyle = ProcessWindowStyle.Hidden,
-                    Arguments = "\"" + ProcessName + "\" /A /V"
-                };
-                P.Start();
-                P.WaitForExit(600);
+                    P.StartInfo = new ProcessStartInfo()
+                    {
+                        FileName = "taskill",
+                        CreateNoWindow = true,
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                        Arguments = "\"" + ProcessName + "\" /A /V"
+                    };
+                    P.Start();
+                    P.WaitForExit(600);
+                }
             }
         }
         public void Start_Proccess()
         {
-            P.StartInfo.FileName = app_path + @"\aria2c.exe";
-            P.StartInfo.Arguments = Conf_path;
-            P.StartInfo.RedirectStandardOutput = true;
-            P.StartInfo.UseShellExecute = false;
-            P.StartInfo.CreateNoWindow = true;
-            P.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-            P.Start();
+            using (Process P = new Process())
+            {
+                P.StartInfo.FileName = app_path + @"\aria2c.exe";
+                P.StartInfo.Arguments = Conf_path;
+                P.StartInfo.RedirectStandardOutput = true;
+                P.StartInfo.UseShellExecute = false;
+                P.StartInfo.CreateNoWindow = true;
+                P.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                P.Start();
+            }
         }
         public void Check_All_File()
         {

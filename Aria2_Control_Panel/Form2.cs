@@ -22,10 +22,11 @@ namespace Aria2_Control_Panel
         }
         public void Conf_TXT()
         {
-            Default_Download_Path.Text = @"dir=" + app_path;
-            Default_Log_Path.Text = @"log=" + app_path + @"\aria2.log";
-            Default_Session_Path.Text = @"save-session=" + app_path + @"\aria2.session";
-            Default_Input_file.Text = @"input-file=" + app_path + @"\aria2.session";
+            Default_Download_Path.Text = app_path;
+            Default_Log_Path.Text =  app_path + @"\aria2.log";
+            Default_Session_Path.Text =  app_path + @"\aria2.session";
+            Default_Input_file.Text =  app_path + @"\aria2.session";
+            Log_Level_Box.Text="info";
             View_All_Conf_File.Text = Conf_file();
         }
         private void Form2_Load(object sender, EventArgs e)
@@ -36,7 +37,17 @@ namespace Aria2_Control_Panel
         private void Save_Conf_Click(object sender, EventArgs e)
         {
             StreamWriter streamWriter = new StreamWriter(app_path + @"\aria2.conf");
-            streamWriter.WriteLine(Default_Download_Path.Text+ "\r\n" + Default_Log_Path.Text + "\r\n" + Default_Session_Path.Text + "\r\n" + Default_Input_file.Text + "\r\n" + View_All_Conf_File.Text + "\r\n");
+            streamWriter.WriteLine
+                (
+                "dir="+Default_Download_Path.Text+ "\r\n" +
+                "log=" + Default_Log_Path.Text + "\r\n" +
+                "save-session=" + Default_Session_Path.Text + "\r\n" +
+                "input-file=" + Default_Input_file.Text + "\r\n" +
+                "log-level=" + Log_Level_Box.Text + "\r\n" +
+                "split=" + split_numericUpDown.Value + "\r\n" +
+                "max-connection-per-server=" + server_number_numericUpDown.Value + "\r\n" +
+                View_All_Conf_File.Text + "\r\n" 
+                );
             streamWriter.Flush();
             streamWriter.Close();
             MessageBox.Show("儲存成功");
@@ -50,7 +61,6 @@ namespace Aria2_Control_Panel
         {
           string conf_file2 = @"save-session-interval=60
 force-save=true
-log-level=error
 remote-time=true
 max-concurrent-downloads=5
 max-tries=0
@@ -62,10 +72,8 @@ max-upload-limit=20
 # Http/FTP options
 connect-timeout=120
 lowest-speed-limit=10K
-max-connection-per-server=128
 max-file-not-found=2
 min-split-size=1k
-split=128
 check-certificate=false
 http-no-cache=true
 http-accept-gzip=true
