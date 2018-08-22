@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace Aria2_Control_Panel
 {
@@ -24,6 +25,40 @@ namespace Aria2_Control_Panel
         {
             InitializeComponent();
             Check_Boost_Up_Status();
+        }
+        public void Check_First_Time_Run()
+        {
+            string app_path = Application.StartupPath;
+            string xml_path = app_path + @"\Aria2.xml"; //設定xml檔案路徑
+            int i = 1;
+            XmlDocument XDoc = new XmlDocument(); // 產生一個 XmlDocument
+            XmlDeclaration XDecl = XDoc.CreateXmlDeclaration("1.0", "UTF-16", null);// 產生一個 XML宣告(Declaration)
+            if (File.Exists(xml_path))
+            {
+                XDoc.Load(xml_path); //載入xml檔
+                XmlNode Aria2_Node = XDoc.SelectSingleNode("Aria2/Run_Time"); //選擇特定xml節點
+                if (Aria2_Node.InnerText == i.ToString()) //如果i為1時，顯示首次運行資訊，並替i設定為2
+                {
+                    MessageBox.Show("歡迎首次運行本程式");
+                    i++;
+                    Aria2_Node.InnerText = i.ToString();
+                    XDoc.Save("Aria2.xml"); //存檔
+                }
+                else
+                { }
+            }
+            else
+            {
+                XDoc.InsertBefore(XDecl, XDoc.DocumentElement);  // 將這個 XML宣告 加入整個檔案最前面
+                XmlElement Aria_Element = XDoc.CreateElement("Aria2"); // 產生一個名為 Aria2 的元素
+                XDoc.AppendChild(Aria_Element); // 將之附加到檔案底下
+                XmlElement Sub_Element = XDoc.CreateElement("Run_Time");
+                i++;
+                Sub_Element.InnerText = i.ToString();
+                Aria_Element.AppendChild(Sub_Element);
+                XDoc.Save("Aria2.xml"); // 儲存
+                MessageBox.Show("歡迎首次運行本程式");
+            }
         }
         public static void GenerateExe(byte[] FileBytes, string DestinationPath)
         {
@@ -225,6 +260,7 @@ namespace Aria2_Control_Panel
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            Check_First_Time_Run();
             Check_Process();
         }
 
