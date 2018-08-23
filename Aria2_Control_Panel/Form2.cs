@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace Aria2_Control_Panel
 {
@@ -20,20 +21,66 @@ namespace Aria2_Control_Panel
             Save_Conf.DialogResult = DialogResult.OK;
             Exit_Bt.DialogResult = DialogResult.Cancel;
         }
+        public void Edit_Aria2_Xml(string select_node, string content)
+        {
+            string xml_path = app_path + @"\Aria2.xml"; //設定xml檔案路徑
+            XmlDocument XDoc = new XmlDocument();
+            XDoc.Load(xml_path);
+            XmlNode Aria2_Node = XDoc.SelectSingleNode("Aria2"+@"/"+select_node);
+            if (Aria2_Node == null)
+            {
+                XmlNode Aria_Element = XDoc.SelectSingleNode("Aria2");
+                XmlElement Sub_Element = XDoc.CreateElement(select_node);
+                Sub_Element.InnerText = content;
+                Aria_Element.InsertAfter(Sub_Element, Aria_Element.FirstChild);
+                XDoc.Save("Aria2.xml");
+            }
+            else
+            {
+                Aria2_Node.InnerText = content;
+                XDoc.Save("Aria2.xml");
+            }
+        }
+        public string Read_Select_Xml(string select_node)
+        {
+            string xml_path = app_path + @"\Aria2.xml"; //設定xml檔案路徑
+            XmlDocument XDoc = new XmlDocument();
+            XDoc.Load(xml_path);
+            XmlNode Aria2_Node = XDoc.SelectSingleNode("Aria2" + @"/" + select_node);
+            return Aria2_Node.InnerText;
+        }
         public void Conf_TXT()
         {
-            Default_Download_Path.Text = app_path;
-            Default_Log_Path.Text =  app_path + @"\aria2.log";
-            Default_Session_Path.Text =  app_path + @"\aria2.session";
-            Default_Input_file.Text =  app_path + @"\aria2.session";
-            Log_Level_Box.Text="info";
-            View_All_Conf_File.Text = Conf_file();
+            string[] content = { "dir", "log", "save-session", "input-fil", "log-level", "split", "max-connection-per-server" , "ALL_Conf_File" };
+            string xml_path = app_path + @"\Aria2.xml"; //設定xml檔案路徑
+            XmlDocument XDoc = new XmlDocument();
+            XDoc.Load(xml_path);
+            XmlNode Aria2_Node = XDoc.SelectSingleNode("Aria2/Run_Time");
+            if (Read_Select_Xml("Run_Time") == "2")
+            {   
+                Aria2_Node.InnerText = 3.ToString();
+                Default_Download_Path.Text = app_path;
+                Default_Log_Path.Text = app_path + @"\aria2.log";
+                Default_Session_Path.Text = app_path + @"\aria2.session";
+                Default_Input_file.Text = app_path + @"\aria2.session";
+                Log_Level_Box.Text = "info";
+                View_All_Conf_File.Text = Conf_file();
+            }
+            else
+            {
+                Default_Download_Path.Text = Read_Select_Xml(content[0]);
+                Default_Log_Path.Text = Read_Select_Xml(content[1]);
+                Default_Session_Path.Text = Read_Select_Xml(content[2]);
+                Default_Input_file.Text = Read_Select_Xml(content[3]);
+                Log_Level_Box.Text = Read_Select_Xml(content[4]);
+                View_All_Conf_File.Text = Read_Select_Xml(content[7]);
+            }
+             XDoc.Save("Aria2.xml");
         }
         private void Form2_Load(object sender, EventArgs e)
         {
             Conf_TXT();
         }
-        
         private void Save_Conf_Click(object sender, EventArgs e)
         {
             StreamWriter streamWriter = new StreamWriter(app_path + @"\aria2.conf");
@@ -48,6 +95,15 @@ namespace Aria2_Control_Panel
                 "max-connection-per-server=" + server_number_numericUpDown.Value + "\r\n" +
                 View_All_Conf_File.Text + "\r\n" 
                 );
+
+                Edit_Aria2_Xml("dir", Default_Download_Path.Text);
+                Edit_Aria2_Xml("log",Default_Log_Path.Text);
+                Edit_Aria2_Xml("save-session", Default_Session_Path.Text);
+                Edit_Aria2_Xml("input-fil", Default_Input_file.Text);
+                Edit_Aria2_Xml("log-level", Log_Level_Box.Text);
+                Edit_Aria2_Xml("split",  split_numericUpDown.Value.ToString());
+                Edit_Aria2_Xml("max-connection-per-server", server_number_numericUpDown.Value.ToString());
+                Edit_Aria2_Xml("ALL_Conf_File", View_All_Conf_File.Text);
             streamWriter.Flush();
             streamWriter.Close();
             MessageBox.Show("儲存成功");
@@ -56,7 +112,6 @@ namespace Aria2_Control_Panel
         {
             Conf_TXT();
         }
-
         static string Conf_file()
         {
           string conf_file2 = @"save-session-interval=60
@@ -130,7 +185,6 @@ force-sequential=true
 ";
 return conf_file2;
         }
-
         public void Control_TextBox(int Set_True)
         {
             TextBox[] TBox = new TextBox[] { this.View_All_Conf_File, this.Watch_Now_File_Textbox};
@@ -141,6 +195,7 @@ return conf_file2;
             }
             TBox[Set_True].Visible = true;
         }
+
         private void Edit_File_Button_Click(object sender, EventArgs e)
         {
             Control_TextBox(0);

@@ -28,7 +28,6 @@ namespace Aria2_Control_Panel
         }
         public void Check_First_Time_Run()
         {
-            string app_path = Application.StartupPath;
             string xml_path = app_path + @"\Aria2.xml"; //設定xml檔案路徑
             int i = 1;
             XmlDocument XDoc = new XmlDocument(); // 產生一個 XmlDocument
