@@ -117,6 +117,8 @@ namespace Aria2_Control_Panel
             Default_Session_Path.Text = app_path + @"\aria2.session";
             Default_Input_file.Text = app_path + @"\aria2.session";
             Log_Level_Box.Text = "info";
+            split_numericUpDown.Value = 128;
+            server_number_numericUpDown.Value = 128;
             View_All_Conf_File.Text = Conf_file();
         }
         static string Conf_file()
