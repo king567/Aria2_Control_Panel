@@ -73,6 +73,8 @@ namespace Aria2_Control_Panel
                 Default_Session_Path.Text = Read_Select_Xml(content[2]);
                 Default_Input_file.Text = Read_Select_Xml(content[3]);
                 Log_Level_Box.Text = Read_Select_Xml(content[4]);
+                split_numericUpDown.Value = Convert.ToInt32(Read_Select_Xml(content[5]));
+                server_number_numericUpDown.Value = Convert.ToInt32(Read_Select_Xml(content[6]));
                 View_All_Conf_File.Text = Read_Select_Xml(content[7]);
             }
              XDoc.Save("Aria2.xml");
@@ -110,7 +112,12 @@ namespace Aria2_Control_Panel
         }
         private void Reset_Click(object sender, EventArgs e)
         {
-            Conf_TXT();
+            Default_Download_Path.Text = app_path;
+            Default_Log_Path.Text = app_path + @"\aria2.log";
+            Default_Session_Path.Text = app_path + @"\aria2.session";
+            Default_Input_file.Text = app_path + @"\aria2.session";
+            Log_Level_Box.Text = "info";
+            View_All_Conf_File.Text = Conf_file();
         }
         static string Conf_file()
         {
