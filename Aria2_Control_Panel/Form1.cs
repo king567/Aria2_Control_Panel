@@ -18,7 +18,7 @@ namespace Aria2_Control_Panel
     public partial class Form1 : Form
     {
         string app_path = Application.StartupPath;
-        string Conf_path = @"--conf-path=aria2.conf";
+        string Conf_path = @"--conf-path="+ Application.StartupPath + @"/aria2.conf";
         DateTime GetDateTime = DateTime.Now;
         
         public Form1()
