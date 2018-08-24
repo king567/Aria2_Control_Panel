@@ -35,15 +35,17 @@
             this.Stop_Aria2 = new System.Windows.Forms.Button();
             this.Restart_Aria2 = new System.Windows.Forms.Button();
             this.Information_Box = new System.Windows.Forms.TextBox();
-            this.Boost_Up_CheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.Now_Status = new System.Windows.Forms.ToolStripMenuItem();
             this.Watch_Log = new System.Windows.Forms.ToolStripMenuItem();
             this.Watch_Log_TextBox = new System.Windows.Forms.TextBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.Boost_Up_label = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -110,22 +112,11 @@
             this.Information_Box.Size = new System.Drawing.Size(612, 199);
             this.Information_Box.TabIndex = 3;
             // 
-            // Boost_Up_CheckBox
-            // 
-            this.Boost_Up_CheckBox.AutoSize = true;
-            this.Boost_Up_CheckBox.ForeColor = System.Drawing.SystemColors.Control;
-            this.Boost_Up_CheckBox.Location = new System.Drawing.Point(335, 258);
-            this.Boost_Up_CheckBox.Name = "Boost_Up_CheckBox";
-            this.Boost_Up_CheckBox.Size = new System.Drawing.Size(311, 24);
-            this.Boost_Up_CheckBox.TabIndex = 5;
-            this.Boost_Up_CheckBox.Text = "設置開機啟動：目前為關閉狀態";
-            this.Boost_Up_CheckBox.UseVisualStyleBackColor = true;
-            this.Boost_Up_CheckBox.Click += new System.EventHandler(this.Boost_Up_CheckBox_Click);
-            // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.Boost_Up_label);
+            this.groupBox1.Controls.Add(this.pictureBox1);
             this.groupBox1.Controls.Add(this.menuStrip2);
-            this.groupBox1.Controls.Add(this.Boost_Up_CheckBox);
             this.groupBox1.Controls.Add(this.Information_Box);
             this.groupBox1.Controls.Add(this.Restart_Aria2);
             this.groupBox1.Controls.Add(this.Stop_Aria2);
@@ -181,6 +172,27 @@
             this.Watch_Log_TextBox.Size = new System.Drawing.Size(612, 199);
             this.Watch_Log_TextBox.TabIndex = 9;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Aria2_Control_Panel.Properties.Resources.switch_on;
+            this.pictureBox1.Location = new System.Drawing.Point(280, 247);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(40, 40);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 10;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
+            // Boost_Up_label
+            // 
+            this.Boost_Up_label.AutoSize = true;
+            this.Boost_Up_label.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.Boost_Up_label.Location = new System.Drawing.Point(338, 257);
+            this.Boost_Up_label.Name = "Boost_Up_label";
+            this.Boost_Up_label.Size = new System.Drawing.Size(289, 20);
+            this.Boost_Up_label.TabIndex = 11;
+            this.Boost_Up_label.Text = "設置開機啟動：目前為關閉狀態";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
@@ -203,6 +215,7 @@
             this.groupBox1.PerformLayout();
             this.menuStrip2.ResumeLayout(false);
             this.menuStrip2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -215,12 +228,13 @@
         private System.Windows.Forms.Button Stop_Aria2;
         private System.Windows.Forms.Button Restart_Aria2;
         private System.Windows.Forms.TextBox Information_Box;
-        private System.Windows.Forms.CheckBox Boost_Up_CheckBox;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.MenuStrip menuStrip2;
         private System.Windows.Forms.ToolStripMenuItem Now_Status;
         private System.Windows.Forms.ToolStripMenuItem Watch_Log;
         private System.Windows.Forms.TextBox Watch_Log_TextBox;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label Boost_Up_label;
     }
 }
 

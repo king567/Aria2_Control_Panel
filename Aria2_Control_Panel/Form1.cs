@@ -96,7 +96,7 @@ namespace Aria2_Control_Panel
                 Insert_Text("提取成功");
             }
         }
-        public void kill_process()
+        public void Kill_process()
         {
             string ProcessName = "aria2c.exe";
             using (Process P = new Process())
@@ -186,13 +186,15 @@ namespace Aria2_Control_Panel
             Check_All_File();
             if (RegT == null)
             {
-                Boost_Up_CheckBox.Text = "設置開機啟動：目前為關閉狀態";
-                Boost_Up_CheckBox.Checked = false;
+                Boost_Up_label.Text = "設置開機啟動：目前為關閉狀態";
+                pictureBox1.Image = Properties.Resources.switch_off;
+                Check_Boost_Value = 0;
             }
             else
             {
-                Boost_Up_CheckBox.Text = "設置開機啟動：目前為開啟狀態";
-                Boost_Up_CheckBox.Checked = true;
+                Boost_Up_label.Text = "設置開機啟動：目前為開啟狀態";
+                pictureBox1.Image = Properties.Resources.switch_on;
+                Check_Boost_Value = 1;
             }
         }
         public void Insert_Text(string content)
@@ -244,13 +246,13 @@ namespace Aria2_Control_Panel
 
         private void Stop_Aria2_Click(object sender, EventArgs e)
         {
-            kill_process();
+            Kill_process();
             Check_Process();
         }
 
         private void Restart_Aria2_Click(object sender, EventArgs e)
         {
-            kill_process();
+            Kill_process();
             Check_All_File();
             Check_aria2_file_Exists();
             Start_Proccess();
@@ -293,9 +295,12 @@ namespace Aria2_Control_Panel
             Control_TextBox(1);
             Check_Log_File();
         }
-
-        private void Boost_Up_CheckBox_Click(object sender, EventArgs e)
+        int Check_Boost_Value = 0;
+        bool b = false;
+        private void pictureBox1_Click(object sender, EventArgs e)
         {
+            Check_Boost_Value = Check_Boost_Value ^ 1; //做 xor 運算 ，按一下 True ，再按一下 False......... 
+            b = Convert.ToBoolean(Check_Boost_Value);
             // 獲得應用進程路徑
             string strAssName = Application.StartupPath + @"\aria2c.exe";
             // 獲得應用進程名稱
@@ -309,8 +314,9 @@ namespace Aria2_Control_Panel
             string king3 = @"""" + app_path + @"\aria2c.exe" + @" " + @"--conf-path=aria2.conf" + @"""" + @",0";
             string Com_path = king1 + king2 + king3;
             ////////////////////////////////////////////////////////////////////
-            if (Boost_Up_CheckBox.Checked == true)
+            if (b)
             {
+                pictureBox1.Image = Properties.Resources.switch_on;
                 // 打開註冊表基項"HKEY_LOCAL_MACHINE"
                 RegistryKey rgkRun = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
                 StreamWriter streamWriter = new StreamWriter(aria2_boost_up, true);
@@ -338,18 +344,19 @@ namespace Aria2_Control_Panel
                     // 設置指定的註冊表項的指定名稱/值對。如果指定的項不存在，則創建該項。
                     rgkRun.SetValue(strShortFileName, Cmd_Path);
                     Insert_Text("添加開機啟動成功");
-                    Boost_Up_CheckBox.Text = "設置開機啟動：目前為開啟狀態";
+                    Boost_Up_label.Text = "設置開機啟動：目前為開啟狀態";
                 }
                 else
                 {
                     // 設置指定的註冊表項的指定名稱/值對。如果指定的項不存在，則創建該項。
                     rgkRun.SetValue(strShortFileName, Cmd_Path);
                     Insert_Text("添加開機啟動成功");
-                    Boost_Up_CheckBox.Text = "設置開機啟動：目前為開啟狀態";
+                    Boost_Up_label.Text = "設置開機啟動：目前為開啟狀態";
                 }
             }
-            else if (Boost_Up_CheckBox.Checked == false)
+            else
             {
+                pictureBox1.Image = Properties.Resources.switch_off;
                 // 打開註冊表基項"HKEY_LOCAL_MACHINE"
                 RegistryKey rgkRun = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
                 if (File.Exists(aria2_boost_up))
@@ -365,7 +372,7 @@ namespace Aria2_Control_Panel
                     // 刪除指定的註冊表項的指定名稱/值對。
                     rgkRun.DeleteValue(strShortFileName, false);
                     Insert_Text("已關閉開機啟動");
-                    Boost_Up_CheckBox.Text = "設置開機啟動：目前為關閉狀態";
+                    Boost_Up_label.Text = "設置開機啟動：目前為關閉狀態";
                 }
             }
         }
