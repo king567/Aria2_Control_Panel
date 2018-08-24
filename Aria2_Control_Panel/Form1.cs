@@ -297,7 +297,7 @@ namespace Aria2_Control_Panel
         }
         int Check_Boost_Value = 0;
         bool b = false;
-        private void pictureBox1_Click(object sender, EventArgs e)
+        private void PictureBox1_Click(object sender, EventArgs e)
         {
             Check_Boost_Value = Check_Boost_Value ^ 1; //做 xor 運算 ，按一下 True ，再按一下 False......... 
             b = Convert.ToBoolean(Check_Boost_Value);

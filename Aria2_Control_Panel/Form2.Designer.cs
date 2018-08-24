@@ -252,7 +252,6 @@
             this.Select_Path_button1.TabIndex = 15;
             this.Select_Path_button1.Text = "...";
             this.Select_Path_button1.UseVisualStyleBackColor = true;
-            this.Select_Path_button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Select_Path_button3
             // 

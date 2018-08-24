@@ -223,18 +223,6 @@ return conf_file2;
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            FolderBrowserDialog path = new FolderBrowserDialog();
-            path.ShowDialog();
-            if(path.SelectedPath == "")
-            {}
-            else
-            {
-                this.Default_Download_Path.Text = "dir="+path.SelectedPath;
-            } 
-        }
-
         private void Select_Path_button2_Click(object sender, EventArgs e)
         {
             OpenFileDialog file = new OpenFileDialog();
