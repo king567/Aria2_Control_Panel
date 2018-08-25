@@ -376,5 +376,39 @@ namespace Aria2_Control_Panel
                 }
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Normal;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            this.notifyIcon1.Text = "Aria2 Control Panel 已縮小至工作列";
+            this.notifyIcon1.Icon = new Icon(@"C:\Users\king0\Documents\GitHub\Aria2_Control_Panel\Aria2_Control_Panel\icons8.ico");
+            this.WindowState = FormWindowState.Minimized;
+            this.ShowInTaskbar = false;
+            this.notifyIcon1.Visible = true;
+        }
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                this.Show();
+                this.WindowState = FormWindowState.Normal;
+                this.ShowInTaskbar = true;
+
+            }
+        }
     }
 }

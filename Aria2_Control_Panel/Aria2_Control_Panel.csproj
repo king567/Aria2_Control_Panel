@@ -66,6 +66,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DragControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,6 +116,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icons8.ico" />
+    <None Include="Resources\window-shade.png" />
+    <None Include="Resources\minimize-window.png" />
+    <None Include="Resources\mini-max-windows.png" />
+    <None Include="Resources\maximize-window.png" />
+    <None Include="Resources\close-window.png" />
+    <None Include="Resources\Panel_Img-50.png" />
+    <None Include="Resources\Panel_Img.png" />
     <None Include="Resources\switch-on.png" />
     <None Include="Resources\switch-off.png" />
     <None Include="Resources\aria2c.exe" />
