@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -395,7 +396,7 @@ namespace Aria2_Control_Panel
         private void button4_Click(object sender, EventArgs e)
         {
             this.notifyIcon1.Text = "Aria2 Control Panel 已縮小至工作列";
-            this.notifyIcon1.Icon = new Icon(@"C:\Users\king0\Documents\GitHub\Aria2_Control_Panel\Aria2_Control_Panel\icons8.ico");
+            this.notifyIcon1.Icon = new Icon(app_path+ @"\Panel.ico");
             this.WindowState = FormWindowState.Minimized;
             this.ShowInTaskbar = false;
             this.notifyIcon1.Visible = true;
@@ -407,7 +408,6 @@ namespace Aria2_Control_Panel
                 this.Show();
                 this.WindowState = FormWindowState.Normal;
                 this.ShowInTaskbar = true;
-
             }
         }
     }
