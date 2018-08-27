@@ -50,17 +50,23 @@
             this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.編輯設定檔ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Task_Bar_Icon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.Task_Bar_Menu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ToolStripMenuItem_Start = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItem_Stop = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItem_Restart = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dragControl1 = new Aria2_Control_Panel.DragControl();
             this.dragControl2 = new Aria2_Control_Panel.DragControl();
             this.dragControl3 = new Aria2_Control_Panel.DragControl();
             this.dragControl4 = new Aria2_Control_Panel.DragControl();
-            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            this.Task_Bar_Menu.SuspendLayout();
             this.SuspendLayout();
             // 
             // Start_Aria2
@@ -159,7 +165,7 @@
             this.Watch_Log});
             this.menuStrip2.Location = new System.Drawing.Point(15, 128);
             this.menuStrip2.Name = "menuStrip2";
-            this.menuStrip2.Size = new System.Drawing.Size(178, 27);
+            this.menuStrip2.Size = new System.Drawing.Size(177, 28);
             this.menuStrip2.TabIndex = 8;
             this.menuStrip2.Text = "menuStrip2";
             // 
@@ -167,7 +173,7 @@
             // 
             this.Now_Status.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.Now_Status.Name = "Now_Status";
-            this.Now_Status.Size = new System.Drawing.Size(81, 23);
+            this.Now_Status.Size = new System.Drawing.Size(81, 24);
             this.Now_Status.Text = "目前狀態";
             this.Now_Status.Click += new System.EventHandler(this.Now_Status_Click);
             // 
@@ -175,7 +181,7 @@
             // 
             this.Watch_Log.BackColor = System.Drawing.Color.Gray;
             this.Watch_Log.Name = "Watch_Log";
-            this.Watch_Log.Size = new System.Drawing.Size(89, 23);
+            this.Watch_Log.Size = new System.Drawing.Size(88, 24);
             this.Watch_Log.Text = "查看log檔";
             this.Watch_Log.Click += new System.EventHandler(this.Watch_Log_Click);
             // 
@@ -220,11 +226,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 18F);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(7)))), ((int)(((byte)(7)))));
             this.label1.Location = new System.Drawing.Point(71, 11);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(189, 37);
+            this.label1.Size = new System.Drawing.Size(184, 36);
             this.label1.TabIndex = 4;
             this.label1.Text = "Aria2 控制台";
             // 
@@ -269,7 +275,7 @@
             this.button2.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(86)))), ((int)(((byte)(98)))), ((int)(((byte)(112)))));
             this.button2.FlatAppearance.BorderSize = 0;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Century Gothic", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(7)))), ((int)(((byte)(7)))));
             this.button2.Image = global::Aria2_Control_Panel.Properties.Resources.maximize_window;
             this.button2.Location = new System.Drawing.Point(519, 0);
@@ -287,7 +293,7 @@
             this.button1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(86)))), ((int)(((byte)(98)))), ((int)(((byte)(112)))));
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(7)))), ((int)(((byte)(7)))));
             this.button1.Image = global::Aria2_Control_Panel.Properties.Resources.close_window;
             this.button1.Location = new System.Drawing.Point(594, 0);
@@ -305,19 +311,66 @@
             this.編輯設定檔ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 58);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(669, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(669, 26);
             this.menuStrip1.TabIndex = 9;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // 編輯設定檔ToolStripMenuItem
             // 
             this.編輯設定檔ToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(227)))), ((int)(((byte)(218)))));
-            this.編輯設定檔ToolStripMenuItem.Font = new System.Drawing.Font("Century Gothic", 9F);
+            this.編輯設定檔ToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.編輯設定檔ToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
             this.編輯設定檔ToolStripMenuItem.Name = "編輯設定檔ToolStripMenuItem";
-            this.編輯設定檔ToolStripMenuItem.Size = new System.Drawing.Size(101, 24);
+            this.編輯設定檔ToolStripMenuItem.Size = new System.Drawing.Size(95, 22);
             this.編輯設定檔ToolStripMenuItem.Text = "編輯設定檔";
             this.編輯設定檔ToolStripMenuItem.Click += new System.EventHandler(this.編輯設定檔ToolStripMenuItem_Click);
+            // 
+            // Task_Bar_Icon
+            // 
+            this.Task_Bar_Icon.ContextMenuStrip = this.Task_Bar_Menu;
+            this.Task_Bar_Icon.Text = "notifyIcon1";
+            this.Task_Bar_Icon.Visible = true;
+            this.Task_Bar_Icon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Task_Bar_Icon_MouseDoubleClick);
+            // 
+            // Task_Bar_Menu
+            // 
+            this.Task_Bar_Menu.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.Task_Bar_Menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripMenuItem_Start,
+            this.ToolStripMenuItem_Stop,
+            this.ToolStripMenuItem_Restart,
+            this.ToolStripMenuItem});
+            this.Task_Bar_Menu.Name = "contextMenuStrip1";
+            this.Task_Bar_Menu.Size = new System.Drawing.Size(111, 100);
+            // 
+            // ToolStripMenuItem_Start
+            // 
+            this.ToolStripMenuItem_Start.Name = "ToolStripMenuItem_Start";
+            this.ToolStripMenuItem_Start.Size = new System.Drawing.Size(110, 24);
+            this.ToolStripMenuItem_Start.Text = "啟動";
+            this.ToolStripMenuItem_Start.Click += new System.EventHandler(this.ToolStripMenuItem_Click_Start);
+            // 
+            // ToolStripMenuItem_Stop
+            // 
+            this.ToolStripMenuItem_Stop.Name = "ToolStripMenuItem_Stop";
+            this.ToolStripMenuItem_Stop.Size = new System.Drawing.Size(110, 24);
+            this.ToolStripMenuItem_Stop.Text = "停止";
+            this.ToolStripMenuItem_Stop.Click += new System.EventHandler(this.ToolStripMenuItem_Click_Stop);
+            // 
+            // ToolStripMenuItem_Restart
+            // 
+            this.ToolStripMenuItem_Restart.Name = "ToolStripMenuItem_Restart";
+            this.ToolStripMenuItem_Restart.Size = new System.Drawing.Size(110, 24);
+            this.ToolStripMenuItem_Restart.Text = "重啟";
+            this.ToolStripMenuItem_Restart.Click += new System.EventHandler(this.ToolStripMenuItem_Click_Restart);
+            // 
+            // ToolStripMenuItem
+            // 
+            this.ToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ToolStripMenuItem.Name = "ToolStripMenuItem";
+            this.ToolStripMenuItem.Size = new System.Drawing.Size(110, 24);
+            this.ToolStripMenuItem.Text = "結束";
+            this.ToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click_Close);
             // 
             // dragControl1
             // 
@@ -334,12 +387,6 @@
             // dragControl4
             // 
             this.dragControl4.SelectControl = this;
-            // 
-            // notifyIcon1
-            // 
-            this.notifyIcon1.Text = "notifyIcon1";
-            this.notifyIcon1.Visible = true;
-            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
             // 
             // Form1
             // 
@@ -367,6 +414,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.Task_Bar_Menu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -396,8 +444,13 @@
         private DragControl dragControl2;
         private DragControl dragControl3;
         private DragControl dragControl4;
-        private System.Windows.Forms.NotifyIcon notifyIcon1;
+        private System.Windows.Forms.NotifyIcon Task_Bar_Icon;
         private System.Windows.Forms.ToolStripMenuItem Now_Status;
+        private System.Windows.Forms.ContextMenuStrip Task_Bar_Menu;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_Start;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_Stop;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_Restart;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem;
     }
 }
 

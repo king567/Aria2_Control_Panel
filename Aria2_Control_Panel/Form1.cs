@@ -395,13 +395,14 @@ namespace Aria2_Control_Panel
 
         private void button4_Click(object sender, EventArgs e)
         {
-            this.notifyIcon1.Text = "Aria2 Control Panel 已縮小至工作列";
-            this.notifyIcon1.Icon = Properties.Resources.icons8;
+            this.Task_Bar_Icon.Text = "Aria2 Control Panel 已縮小至工作列";
+            this.Task_Bar_Icon.Icon = Properties.Resources.icons8;
             this.WindowState = FormWindowState.Minimized;
             this.ShowInTaskbar = false;
-            this.notifyIcon1.Visible = true;
+            this.Task_Bar_Icon.Visible = true;
         }
-        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+
+        private void Task_Bar_Icon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -409,6 +410,31 @@ namespace Aria2_Control_Panel
                 this.WindowState = FormWindowState.Normal;
                 this.ShowInTaskbar = true;
             }
+        }
+        private void ToolStripMenuItem_Click_Start(object sender, EventArgs e)
+        {
+            Check_All_File();
+            Check_aria2_file_Exists();
+            Start_Proccess();
+            Check_Process();
+        }
+        private void ToolStripMenuItem_Click_Stop(object sender, EventArgs e)
+        {
+            Kill_process();
+            Check_Process();
+        }
+
+        private void ToolStripMenuItem_Click_Restart(object sender, EventArgs e)
+        {
+            Kill_process();
+            Check_All_File();
+            Check_aria2_file_Exists();
+            Start_Proccess();
+            Check_Process();
+        }
+        private void ToolStripMenuItem_Click_Close(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
