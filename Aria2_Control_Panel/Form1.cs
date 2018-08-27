@@ -396,7 +396,7 @@ namespace Aria2_Control_Panel
         private void button4_Click(object sender, EventArgs e)
         {
             this.notifyIcon1.Text = "Aria2 Control Panel 已縮小至工作列";
-            this.notifyIcon1.Icon = new Icon(app_path+ @"\Panel.ico");
+            this.notifyIcon1.Icon = Properties.Resources.icons8;
             this.WindowState = FormWindowState.Minimized;
             this.ShowInTaskbar = false;
             this.notifyIcon1.Visible = true;

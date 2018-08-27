@@ -119,9 +119,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Panel.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Panel.ico" />
     <None Include="Resources\icons8.ico" />
     <None Include="Resources\window-shade.png" />
     <None Include="Resources\minimize-window.png" />
