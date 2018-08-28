@@ -109,6 +109,7 @@ namespace Aria2_Control_Panel
             streamWriter.Flush();
             streamWriter.Close();
             MessageBox.Show("儲存成功");
+            this.Close();
         }
         private void Reset_Click(object sender, EventArgs e)
         {
@@ -220,13 +221,20 @@ return conf_file2;
 
         private void Exit_Bt_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
-
+        private void Select_Path_button1_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folder = new FolderBrowserDialog();
+            folder.ShowDialog();
+            this.Default_Download_Path.Text = folder.SelectedPath;
+        }
         private void Select_Path_button2_Click(object sender, EventArgs e)
         {
-            OpenFileDialog file = new OpenFileDialog();
-            file.Filter = "aria2|*.log";
+            OpenFileDialog file = new OpenFileDialog
+            {
+                Filter = "aria2|*.log"
+            };
             file.ShowDialog();
             if(file.FileName.ToString() == "")
             { }
@@ -238,8 +246,10 @@ return conf_file2;
 
         private void Select_Path_button3_Click(object sender, EventArgs e)
         {
-            OpenFileDialog file = new OpenFileDialog();
-            file.Filter = "aria2|*.session";
+            OpenFileDialog file = new OpenFileDialog
+            {
+                Filter = "aria2|*.session"
+            };
             file.ShowDialog();
             if (file.FileName.ToString() == "")
             { }
@@ -251,8 +261,10 @@ return conf_file2;
 
         private void Select_Path_button4_Click(object sender, EventArgs e)
         {
-            OpenFileDialog file = new OpenFileDialog();
-            file.Filter = "aria2|*.session";
+            OpenFileDialog file = new OpenFileDialog
+            {
+                Filter = "aria2|*.session"
+            };
             file.ShowDialog();
             if (file.FileName.ToString() == "")
             { }
