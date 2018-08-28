@@ -378,22 +378,22 @@ namespace Aria2_Control_Panel
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Click_Close(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Click_Maxsize_Windows(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Normal;
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void Click_Mini_Size_Windows(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void Click_Minn_To_Task_Bar(object sender, EventArgs e)
         {
             this.Task_Bar_Icon.Text = "Aria2 Control Panel 已縮小至工作列";
             this.Task_Bar_Icon.Icon = Properties.Resources.icons8;

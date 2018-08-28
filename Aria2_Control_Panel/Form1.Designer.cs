@@ -249,7 +249,7 @@
             this.button4.Size = new System.Drawing.Size(71, 58);
             this.button4.TabIndex = 3;
             this.button4.UseVisualStyleBackColor = false;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.button4.Click += new System.EventHandler(this.Click_Minn_To_Task_Bar);
             // 
             // button3
             // 
@@ -266,7 +266,7 @@
             this.button3.Size = new System.Drawing.Size(75, 58);
             this.button3.TabIndex = 2;
             this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.button3.Click += new System.EventHandler(this.Click_Mini_Size_Windows);
             // 
             // button2
             // 
@@ -284,7 +284,7 @@
             this.button2.TabIndex = 1;
             this.button2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.Click += new System.EventHandler(this.Click_Maxsize_Windows);
             // 
             // button1
             // 
@@ -301,7 +301,7 @@
             this.button1.Size = new System.Drawing.Size(75, 58);
             this.button1.TabIndex = 0;
             this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.Click_Close);
             // 
             // menuStrip1
             // 
