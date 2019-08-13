@@ -21,11 +21,48 @@ namespace Aria2_Control_Panel
         string app_path = Application.StartupPath;
         string Conf_path = @"--conf-path="+ Application.StartupPath + @"/aria2.conf";
         DateTime GetDateTime = DateTime.Now;
-        
+
         public Form1()
         {
             InitializeComponent();
             Check_Boost_Up_Status();
+        }
+        public static string Select_Combobox(int i)
+        {
+            string[] Select_Combobox = { "KB" , "MB" , "GB" };
+            return Select_Combobox[i];
+        }
+        public static long FormatSize(Int64 bytes)
+        {
+           // string Size_Format = Properties.Settings.Default.Data_Unit;
+            decimal number = (decimal)bytes;
+            switch (Select_Combobox(Properties.Settings.Default.SelectedIndex))
+            {
+                case "KB":
+                    number = number / 1024;
+                    break;
+                case "MB":
+                    number = number / (1024 * 1024);
+                    break;
+                case "GB":
+                    number = number / (1024 * 1024 * 1024);
+                    break;
+                default:
+                    number = number / 1024;
+                    break;
+            }
+            long log_size = Convert.ToInt64(number);
+            return log_size;
+        }
+        public void Clean_Log_File()
+        {
+            long log_size = Convert.ToInt64(Properties.Settings.Default.Log_Size);
+            long length = new FileInfo(app_path + @"\aria2.log").Length;
+            if (log_size < FormatSize(length))
+            {
+                File.WriteAllText(app_path + @"\aria2.log", string.Empty);
+                Insert_Text("已清空Log檔");
+            }
         }
         public void Check_First_Time_Run()
         {
@@ -264,6 +301,7 @@ namespace Aria2_Control_Panel
         {
             Check_First_Time_Run();
             Check_Process();
+            Clean_Log_File();
         }
 
         private void 編輯設定檔ToolStripMenuItem_Click(object sender, EventArgs e)

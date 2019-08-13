@@ -18,6 +18,7 @@ namespace Aria2_Control_Panel
         public Form2()
         {
             InitializeComponent();
+            
             Save_Conf.DialogResult = DialogResult.OK;
             Exit_Bt.DialogResult = DialogResult.Cancel;
         }
@@ -81,10 +82,13 @@ namespace Aria2_Control_Panel
         }
         private void Form2_Load(object sender, EventArgs e)
         {
+            Unit.SelectedIndex = Properties.Settings.Default.SelectedIndex;
             Conf_TXT();
         }
         private void Save_Conf_Click(object sender, EventArgs e)
         {
+            Properties.Settings.Default.SelectedIndex = Unit.SelectedIndex;
+            Properties.Settings.Default.Save();
             StreamWriter streamWriter = new StreamWriter(app_path + @"\aria2.conf");
             streamWriter.WriteLine
                 (
@@ -273,5 +277,6 @@ return conf_file2;
                 this.Default_Input_file.Text = "input-file=" + file.FileName.ToString();
             }
         }
+
     }
 }
