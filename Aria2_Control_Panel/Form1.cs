@@ -1,27 +1,15 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml;
 
 namespace Aria2_Control_Panel
 {
     public partial class Form1 : Form
     {
-        string app_path = Application.StartupPath;
-        string Conf_path = @"--conf-path="+ Application.StartupPath + @"/aria2.conf";
-        DateTime GetDateTime = DateTime.Now;
-
         public Form1()
         {
             InitializeComponent();
@@ -29,26 +17,25 @@ namespace Aria2_Control_Panel
         }
         public static string Select_Combobox(int i)
         {
-            string[] Select_Combobox = { "KB" , "MB" , "GB" };
+            string[] Select_Combobox = { "KB", "MB", "GB" };
             return Select_Combobox[i];
         }
         public static long FormatSize(Int64 bytes)
         {
-           // string Size_Format = Properties.Settings.Default.Data_Unit;
             decimal number = (decimal)bytes;
-            switch (Select_Combobox(Properties.Settings.Default.SelectedIndex))
+            switch (Select_Combobox(Properties.Settings.Default.Log_Unit_Format))
             {
                 case "KB":
-                    number = number / 1024;
+                    number /= 1024;
                     break;
                 case "MB":
-                    number = number / (1024 * 1024);
+                    number /= (1024 * 1024);
                     break;
                 case "GB":
-                    number = number / (1024 * 1024 * 1024);
+                    number /= (1024 * 1024 * 1024);
                     break;
                 default:
-                    number = number / 1024;
+                    number /= 1024;
                     break;
             }
             long log_size = Convert.ToInt64(number);
@@ -57,49 +44,26 @@ namespace Aria2_Control_Panel
         public void Clean_Log_File()
         {
             long log_size = Convert.ToInt64(Properties.Settings.Default.Log_Size);
-            long length = new FileInfo(app_path + @"\aria2.log").Length;
+            long length = new FileInfo(Properties.Settings.Default.App_Path + @"\aria2.log").Length;
             if (log_size < FormatSize(length))
             {
-                File.WriteAllText(app_path + @"\aria2.log", string.Empty);
+                File.WriteAllText(Properties.Settings.Default.App_Path + @"\aria2.log", string.Empty);
                 Insert_Text("已清空Log檔");
             }
         }
         public void Check_First_Time_Run()
         {
-            string xml_path = app_path + @"\Aria2.xml"; //設定xml檔案路徑
-            int i = 1;
-            XmlDocument XDoc = new XmlDocument(); // 產生一個 XmlDocument
-            XmlDeclaration XDecl = XDoc.CreateXmlDeclaration("1.0", "UTF-16", null);// 產生一個 XML宣告(Declaration)
-            if (File.Exists(xml_path))
+            if (Properties.Settings.Default.Run_Time == 0)
             {
-                XDoc.Load(xml_path); //載入xml檔
-                XmlNode Aria2_Node = XDoc.SelectSingleNode("Aria2/Run_Time"); //選擇特定xml節點
-                if (Aria2_Node.InnerText == i.ToString()) //如果i為1時，顯示首次運行資訊，並替i設定為2
-                {
-                    MessageBox.Show("歡迎首次運行本程式");
-                    i++;
-                    Aria2_Node.InnerText = i.ToString();
-                    XDoc.Save("Aria2.xml"); //存檔
-                }
-                else
-                { }
-            }
-            else
-            {
-                XDoc.InsertBefore(XDecl, XDoc.DocumentElement);  // 將這個 XML宣告 加入整個檔案最前面
-                XmlElement Aria_Element = XDoc.CreateElement("Aria2"); // 產生一個名為 Aria2 的元素
-                XDoc.AppendChild(Aria_Element); // 將之附加到檔案底下
-                XmlElement Sub_Element = XDoc.CreateElement("Run_Time");
-                i++;
-                Sub_Element.InnerText = i.ToString();
-                Aria_Element.AppendChild(Sub_Element);
-                XDoc.Save("Aria2.xml"); // 儲存
-                MessageBox.Show("歡迎首次運行本程式");
+                MessageBox.Show("歡迎使用Aria2 Control Panel");
+                Insert_Text("第一次執行請先進行設定");
+                Properties.Settings.Default.Run_Time = 1;
+                Properties.Settings.Default.Save();
             }
         }
         public static void GenerateExe(byte[] FileBytes, string DestinationPath)
         {
-            string fullPath = Application.StartupPath + @"\" + @"aria2.exe";
+            string fullPath = Properties.Settings.Default.App_Path + @"\" + @"aria2.exe";
             fullPath = DestinationPath;
             try
             {
@@ -124,13 +88,11 @@ namespace Aria2_Control_Panel
         }
         public void Check_aria2_file_Exists()
         {
-            if(File.Exists(app_path + @"\aria2c.exe"))
-            {}
-            else
+            if (File.Exists(Properties.Settings.Default.App_Path + @"\aria2c.exe") == false)
             {
                 Insert_Text("aria2c.exe不存在");
                 Insert_Text("提取檔案中.....");
-                GenerateExe(Properties.Resources.aria2c, app_path + @"\aria2c.exe");
+                GenerateExe(Properties.Resources.aria2c, Properties.Settings.Default.App_Path + @"\aria2c.exe");
                 Insert_Text("提取成功");
             }
         }
@@ -169,8 +131,8 @@ namespace Aria2_Control_Panel
         {
             using (Process P = new Process())
             {
-                P.StartInfo.FileName = app_path + @"\aria2c.exe";
-                P.StartInfo.Arguments = Conf_path;
+                P.StartInfo.FileName = Properties.Settings.Default.App_Path + @"\aria2c.exe";
+                P.StartInfo.Arguments = Properties.Settings.Default.Conf_Path;
                 P.StartInfo.RedirectStandardOutput = true;
                 P.StartInfo.UseShellExecute = false;
                 P.StartInfo.CreateNoWindow = true;
@@ -180,18 +142,18 @@ namespace Aria2_Control_Panel
         }
         public void Check_All_File()
         {
-            string[] check_file_path = new string[] { @"aria2.conf", @"aria2.log" , @"aria2.session" };
+            string[] check_file_path = new string[] { @"aria2.conf", @"aria2.log", @"aria2.session" };
             int count_file = check_file_path.GetUpperBound(0);
             for (int i = 0; i <= count_file; i++)
             {
-                string Complete_path = app_path+ @"\"+ check_file_path[i];
+                string Complete_path = Properties.Settings.Default.App_Path + @"\" + check_file_path[i];
                 if (File.Exists(Complete_path))
                 {
                     Insert_Text(check_file_path[i] + " 檔案存在");
                 }
                 else
                 {
-                    using (var myFile = File.Create(app_path + @"\" + check_file_path[i]))
+                    using (var myFile = File.Create(Properties.Settings.Default.App_Path + @"\" + check_file_path[i]))
                     {
                         Insert_Text(check_file_path[i] + " 檔案不存在請創建它");
                         Insert_Text(check_file_path[i] + " 檔案創建成功");
@@ -201,8 +163,8 @@ namespace Aria2_Control_Panel
         }
         public void Check_Log_File()
         {
-            string Log_Path = app_path + @"\aria2.log";
-            string Copy_Path = app_path + @"\Aria2_Control_Panel.log";
+            string Log_Path = Properties.Settings.Default.App_Path + @"\aria2.log";
+            string Copy_Path = Properties.Settings.Default.App_Path + @"\Aria2_Control_Panel.log";
             if (File.Exists(Log_Path))
             {
                 File.Copy(Log_Path, Copy_Path, true);
@@ -247,17 +209,18 @@ namespace Aria2_Control_Panel
         }
         public void Check_Process()
         {
+            DateTime GetDateTime = DateTime.Now;
             Process[] pname = Process.GetProcessesByName("aria2c");
             if (pname.Length == 0)
-            { 
+            {
                 Insert_Text("----------------------------------------------------------------------------------------------------------------------");
-                Insert_Text(GetDateTime.ToString()+@" "+"目前為停止狀態");
+                Insert_Text(GetDateTime.ToString() + @" " + "目前為停止狀態");
                 Insert_Text("----------------------------------------------------------------------------------------------------------------------");
             }
             else
             {
                 Insert_Text("----------------------------------------------------------------------------------------------------------------------");
-                Insert_Text(GetDateTime.ToString()+@" "+ "目前為啟動狀態");
+                Insert_Text(GetDateTime.ToString() + @" " + "目前為啟動狀態");
                 Insert_Text("----------------------------------------------------------------------------------------------------------------------");
             }
         }
@@ -305,7 +268,7 @@ namespace Aria2_Control_Panel
         }
 
         private void 編輯設定檔ToolStripMenuItem_Click(object sender, EventArgs e)
-        { 
+        {
             Form2 fm2 = new Form2();
             fm2.ShowDialog(this);
             if (fm2.DialogResult == DialogResult.OK)
@@ -313,7 +276,7 @@ namespace Aria2_Control_Panel
                 //若使用者在Form2按下了OK，則進入這個判斷式
                 Insert_Text("修改成功");
             }
-            else if(fm2.DialogResult == DialogResult.Cancel)
+            else if (fm2.DialogResult == DialogResult.Cancel)
             {
                 Insert_Text("修改失敗");
             }
@@ -344,13 +307,13 @@ namespace Aria2_Control_Panel
             string strAssName = Application.StartupPath + @"\aria2c.exe";
             // 獲得應用進程名稱
             string strShortFileName = @"aria2c";
-            string aria2_boost_up = app_path + @"\" + @"Boost_Up.vbs";
-            string Cmd_Path = app_path + @"\start.cmd";
-            string Cmd_comand = "cd" + @" " + app_path + "\r\n" + "start" + @" " + "Boost_Up.vbs";
+            string aria2_boost_up = Properties.Settings.Default.App_Path + @"\" + @"Boost_Up.vbs";
+            string Cmd_Path = Properties.Settings.Default.App_Path + @"\start.cmd";
+            string Cmd_comand = "cd" + @" " + Properties.Settings.Default.App_Path + "\r\n" + "start" + @" " + "Boost_Up.vbs";
             ////////////////////////////////////////////////////////////////////
             string king1 = "CreateObject" + @"(" + @"""";
             string king2 = @"WScript" + @"." + @"Shell" + @"""" + ")" + "." + "Run" + @" ";
-            string king3 = @"""" + app_path + @"\aria2c.exe" + @" " + @"--conf-path=aria2.conf" + @"""" + @",0";
+            string king3 = @"""" + Properties.Settings.Default.App_Path + @"\aria2c.exe" + @" " + @"--conf-path=aria2.conf" + @"""" + @",0";
             string Com_path = king1 + king2 + king3;
             ////////////////////////////////////////////////////////////////////
             if (b)

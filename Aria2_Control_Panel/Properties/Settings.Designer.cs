@@ -38,12 +38,163 @@ namespace Aria2_Control_Panel.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int SelectedIndex {
+        public int Log_Unit_Format {
             get {
-                return ((int)(this["SelectedIndex"]));
+                return ((int)(this["Log_Unit_Format"]));
             }
             set {
-                this["SelectedIndex"] = value;
+                this["Log_Unit_Format"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string App_Path {
+            get {
+                return ((string)(this["App_Path"]));
+            }
+            set {
+                this["App_Path"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Conf_Path {
+            get {
+                return ((string)(this["Conf_Path"]));
+            }
+            set {
+                this["Conf_Path"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int Run_Time {
+            get {
+                return ((int)(this["Run_Time"]));
+            }
+            set {
+                this["Run_Time"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Download_Path {
+            get {
+                return ((string)(this["Download_Path"]));
+            }
+            set {
+                this["Download_Path"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Log_Path {
+            get {
+                return ((string)(this["Log_Path"]));
+            }
+            set {
+                this["Log_Path"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Session_Path {
+            get {
+                return ((string)(this["Session_Path"]));
+            }
+            set {
+                this["Session_Path"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Input_file_Path {
+            get {
+                return ((string)(this["Input_file_Path"]));
+            }
+            set {
+                this["Input_file_Path"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int Log_Level_Box {
+            get {
+                return ((int)(this["Log_Level_Box"]));
+            }
+            set {
+                this["Log_Level_Box"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("128")]
+        public decimal split {
+            get {
+                return ((decimal)(this["split"]));
+            }
+            set {
+                this["split"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("128")]
+        public decimal max_connection_per_server {
+            get {
+                return ((decimal)(this["max_connection_per_server"]));
+            }
+            set {
+                this["max_connection_per_server"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("save-session-interval=60\r\nforce-save=true\r\nremote-time=true\r\nmax-concurrent-downl" +
+            "oads=5\r\nmax-tries=0\r\nretry-wait=10\r\ncontinue=true\r\nmax-overall-download-limit=0\r" +
+            "\nmax-overall-upload-limit=50K\r\nmax-upload-limit=20\r\n# Http/FTP options\r\nconnect-" +
+            "timeout=120\r\nlowest-speed-limit=10K\r\nmax-file-not-found=2\r\nmin-split-size=1k\r\nch" +
+            "eck-certificate=false\r\nhttp-no-cache=true\r\nhttp-accept-gzip=true\r\ncheck-integrit" +
+            "y=true\r\ndownload-result=full\r\n# FTP Specific Options\r\n# 當下載的是一個種子(以.torrent結尾)時," +
+            " 自動開始BT任務, 默認:true\r\n#follow-torrent=true\r\n# BT監聽端口, 當端口被屏蔽時使用, 默認:6881-6999\r\nlis" +
+            "ten-port=51413\r\n# 單個種子最大連接數, 默認:55\r\nbt-max-peers=55\r\n# 打開DHT功能, PT需要禁用, 默認:true\r" +
+            "\nenable-dht=false\r\n# 打開IPv6 DHT功能, PT需要禁用\r\n#enable-dht6=false\r\n# DHT網絡監聽端口, 默認:6" +
+            "881-6999\r\n#dht-listen-port=6881-6999\r\n# 本地節點查找, PT需要禁用, 默認:false\r\n#bt-enable-lpd" +
+            "=false\r\n# 種子交換, PT需要禁用, 默認:true\r\nenable-peer-exchange=false\r\n# 每個種子限速, 對少種的PT很有用" +
+            ", 默認:50K\r\n#bt-request-peer-speed-limit=50K\r\n# 客戶端偽裝, PT需要\r\npeer-id-prefix=-TR277" +
+            "0-\r\nuser-agent=Transmission/2.77\r\n# 當種子的分享率達到這個數時, 自動停止做種, 0為一直做種, 默認:1.0\r\nseed-" +
+            "ratio=1.0\r\n# 強制保存會話, 即使任務已經完成, 默認:false\r\n# 較新的版本開啟後會在任務完成後依然保留.aria2文件\r\nforce-sa" +
+            "ve=false\r\n# BT校驗相關, 默認:true\r\nbt-hash-check-seed=true\r\n# 繼續之前的BT任務時, 無需再次校驗, 默認:f" +
+            "alse\r\nbt-seed-unverified=true\r\n# 保存磁力鏈接元數據為種子文件(.torrent文件), 默認:false\r\nbt-save-m" +
+            "etadata=true\r\n# RPC Options\r\nenable-rpc=true\r\npause=true\r\nrpc-allow-origin-all=t" +
+            "rue\r\nrpc-listen-all=true\r\nrpc-save-upload-metadata=true\r\n\r\n# Advanced Options\r\nd" +
+            "aemon=true\r\ndisable-ipv6=true\r\nenable-mmap=true\r\nfile-allocation=falloc\r\nmax-dow" +
+            "nload-result=120\r\n#no-file-allocation-limit=32M\r\nforce-sequential=true")]
+        public string Conf_File {
+            get {
+                return ((string)(this["Conf_File"]));
+            }
+            set {
+                this["Conf_File"] = value;
             }
         }
     }

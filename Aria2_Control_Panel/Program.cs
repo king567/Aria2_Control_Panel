@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Aria2_Control_Panel
@@ -14,6 +11,8 @@ namespace Aria2_Control_Panel
         [STAThread]
         static void Main()
         {
+            Properties.Settings.Default.App_Path = Application.StartupPath;
+            Properties.Settings.Default.Conf_Path = @"--conf-path=" + Application.StartupPath + @"/aria2.conf";
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
