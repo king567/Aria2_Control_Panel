@@ -197,5 +197,17 @@ namespace Aria2_Control_Panel.Properties {
                 this["Conf_File"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Aria2Exe_Path {
+            get {
+                return ((string)(this["Aria2Exe_Path"]));
+            }
+            set {
+                this["Aria2Exe_Path"] = value;
+            }
+        }
     }
 }

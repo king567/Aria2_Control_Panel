@@ -43,6 +43,7 @@ namespace Aria2_Control_Panel
         }
         public void Clean_Log_File()
         {
+            //清空log檔
             long log_size = Convert.ToInt64(Properties.Settings.Default.Log_Size);
             long length = new FileInfo(Properties.Settings.Default.App_Path + @"\aria2.log").Length;
             if (log_size < FormatSize(length))
@@ -53,6 +54,7 @@ namespace Aria2_Control_Panel
         }
         public void Check_First_Time_Run()
         {
+            //檢測是否首次執行
             if (Properties.Settings.Default.Run_Time == 0)
             {
                 MessageBox.Show("歡迎使用Aria2 Control Panel");
@@ -63,17 +65,13 @@ namespace Aria2_Control_Panel
         }
         public static void GenerateExe(byte[] FileBytes, string DestinationPath)
         {
+            //提取aria2
             string fullPath = Properties.Settings.Default.App_Path + @"\" + @"aria2.exe";
             fullPath = DestinationPath;
             try
             {
-                //1) Fetch Exe file content from Resources
                 byte[] memoryFile = FileBytes;
-
-                //2) Create file to be deleted complete execution
                 FileStream aFile = new FileStream(DestinationPath, FileMode.Create, FileAccess.Write, FileShare.None, 20000, FileOptions.None);
-
-                //3) Write Exe file content
                 aFile.Write(memoryFile, 0, memoryFile.Length);
                 aFile.Flush();
                 aFile.Close();
@@ -88,56 +86,65 @@ namespace Aria2_Control_Panel
         }
         public void Check_aria2_file_Exists()
         {
-            if (File.Exists(Properties.Settings.Default.App_Path + @"\aria2c.exe") == false)
+            //檢查是否存在aria2，不存在的話就提取
+            if (File.Exists(Properties.Settings.Default.Aria2Exe_Path) == false)
             {
                 Insert_Text("aria2c.exe不存在");
                 Insert_Text("提取檔案中.....");
-                GenerateExe(Properties.Resources.aria2c, Properties.Settings.Default.App_Path + @"\aria2c.exe");
+                GenerateExe(Properties.Resources.aria2c, Properties.Settings.Default.Aria2Exe_Path);
                 Insert_Text("提取成功");
             }
         }
         public void Kill_process()
         {
             string ProcessName = "aria2c.exe";
-            using (Process P = new Process())
+            Process[] pname = Process.GetProcessesByName("aria2c");
+            if (pname.Length != 0)
             {
-                try
+                using (Process P = new Process())
                 {
-                    P.StartInfo = new ProcessStartInfo()
+                    try
                     {
-                        FileName = "taskkill",
-                        CreateNoWindow = true,
-                        WindowStyle = ProcessWindowStyle.Hidden,
-                        Arguments = "/F /IM \"" + ProcessName + "\""
-                    };
-                    P.Start();
-                    P.WaitForExit(600);
-                }
-                catch
-                {
-                    P.StartInfo = new ProcessStartInfo()
+                        //使用C#方法停止Proccess
+                        Process[] _proceses = null;
+                        _proceses = Process.GetProcessesByName("aria2c");
+                        foreach (Process proces in _proceses)
+                        {
+                            proces.Kill();
+                        }
+                    }
+                    catch
                     {
-                        FileName = "taskill",
-                        CreateNoWindow = true,
-                        WindowStyle = ProcessWindowStyle.Hidden,
-                        Arguments = "\"" + ProcessName + "\" /A /V"
-                    };
-                    P.Start();
-                    P.WaitForExit(600);
+                        //使用CMD方法停止Proccess
+                        P.StartInfo = new ProcessStartInfo()
+                        {
+                            FileName = "taskill",
+                            CreateNoWindow = true,
+                            WindowStyle = ProcessWindowStyle.Hidden,
+                            Arguments = "\"" + ProcessName + "\" /A /V"
+                        };
+                        P.Start();
+                        P.WaitForExit(600);
+                    }
                 }
             }
+
         }
         public void Start_Proccess()
         {
-            using (Process P = new Process())
+            Process[] pname = Process.GetProcessesByName("aria2c");
+            if (pname.Length == 0)
             {
-                P.StartInfo.FileName = Properties.Settings.Default.App_Path + @"\aria2c.exe";
-                P.StartInfo.Arguments = Properties.Settings.Default.Conf_Path;
-                P.StartInfo.RedirectStandardOutput = true;
-                P.StartInfo.UseShellExecute = false;
-                P.StartInfo.CreateNoWindow = true;
-                P.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                P.Start();
+                using (Process P = new Process())
+                {
+                    P.StartInfo.FileName = Properties.Settings.Default.Aria2Exe_Path;
+                    P.StartInfo.Arguments = @"--conf-path=" + Properties.Settings.Default.Conf_Path;
+                    P.StartInfo.RedirectStandardOutput = true;
+                    P.StartInfo.UseShellExecute = false;
+                    P.StartInfo.CreateNoWindow = true;
+                    P.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    P.Start();
+                }
             }
         }
         public void Check_All_File()
@@ -284,7 +291,6 @@ namespace Aria2_Control_Panel
             {
                 Insert_Text("修改失敗");
             }
-
         }
 
         private void Now_Status_Click(object sender, EventArgs e)
@@ -303,18 +309,16 @@ namespace Aria2_Control_Panel
         {
             Check_Boost_Value = Check_Boost_Value ^ 1; //做 xor 運算 ，按一下 True ，再按一下 False......... 
             b = Convert.ToBoolean(Check_Boost_Value);
-            // 獲得應用進程路徑
-            string strAssName = Application.StartupPath + @"\aria2c.exe";
             // 獲得應用進程名稱
             string strShortFileName = @"aria2c";
             string aria2_boost_up = Properties.Settings.Default.App_Path + @"\" + @"Boost_Up.vbs";
             string Cmd_Path = Properties.Settings.Default.App_Path + @"\start.cmd";
             string Cmd_comand = "cd" + @" " + Properties.Settings.Default.App_Path + "\r\n" + "start" + @" " + "Boost_Up.vbs";
             ////////////////////////////////////////////////////////////////////
-            string king1 = "CreateObject" + @"(" + @"""";
-            string king2 = @"WScript" + @"." + @"Shell" + @"""" + ")" + "." + "Run" + @" ";
-            string king3 = @"""" + Properties.Settings.Default.App_Path + @"\aria2c.exe" + @" " + @"--conf-path=aria2.conf" + @"""" + @",0";
-            string Com_path = king1 + king2 + king3;
+            string Cmd_1 = "CreateObject" + @"(" + @"""";
+            string Cmd_2 = @"WScript" + @"." + @"Shell" + @"""" + ")" + "." + "Run" + @" ";
+            string Cmd_3 = @"""" + Properties.Settings.Default.Aria2Exe_Path + @" " + @"--conf-path=aria2.conf" + @"""" + @",0";
+            string Com_path = Cmd_1 + Cmd_2 + Cmd_3;
             ////////////////////////////////////////////////////////////////////
             if (b)
             {

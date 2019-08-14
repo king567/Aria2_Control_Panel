@@ -22,6 +22,7 @@ namespace Aria2_Control_Panel
                 Default_Session_Path.Text = Properties.Settings.Default.App_Path + @"\aria2.session";
                 Default_Input_file.Text = Properties.Settings.Default.App_Path + @"\aria2.session";
                 Log_Level_Box.SelectedIndex = Properties.Settings.Default.Log_Level_Box;
+
                 View_All_Conf_File.Text = Conf_file();
                 Properties.Settings.Default.Run_Time = 2;
             }
@@ -52,7 +53,7 @@ namespace Aria2_Control_Panel
             Properties.Settings.Default.Session_Path = Default_Session_Path.Text;
             Properties.Settings.Default.Input_file_Path = Default_Input_file.Text;
             Properties.Settings.Default.Save();
-            StreamWriter streamWriter = new StreamWriter(Properties.Settings.Default.App_Path + @"\aria2.conf");
+            StreamWriter streamWriter = new StreamWriter(Properties.Settings.Default.Conf_Path);
             streamWriter.WriteLine
                 (
                 "dir=" + Default_Download_Path.Text + "\r\n" +

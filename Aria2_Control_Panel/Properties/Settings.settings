@@ -108,5 +108,8 @@ max-download-result=120
 #no-file-allocation-limit=32M
 force-sequential=true</Value>
     </Setting>
+    <Setting Name="Aria2Exe_Path" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>
